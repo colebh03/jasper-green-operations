@@ -1,0 +1,114 @@
+﻿@*
+============================================================================
+AUTHOR:       Cole Howell
+COURSE:       ISTM 415
+PROGRAM:      AddEdit.cshtml (Property Add/Edit View)
+
+PURPOSE:      Provides a form interface for creating and editing Property
+              records, including customer association and location details.
+
+INPUT:        PropertyViewModel containing Property data, Customer list for
+              dropdown selection, and state list for address input.
+
+PROCESS:      Renders form fields bound to Property properties and validates
+              user input before submission to the Save action.
+
+OUTPUT:       HTML form submission that results in inserting or updating a
+              Property record in the database.
+
+HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
+              unauthorized aid on this academic work.
+============================================================================
+*@
+
+@model PropertyViewModel
+
+@{
+    // Set page title based on string ("Add" or "Edit")
+    string title = Model.Action + " Property";
+    ViewData["Title"] = title;
+}
+
+<div class="mx-auto" style="max-width: 900px;">
+    <h2 class="mt-3 mb-3">@ViewData["Title"]</h2>
+
+    <div class="card-box shadow-sm p-3 mx-auto" style="max-width: 900px;">
+        <form asp-action="Save" method="post">
+
+            <!-- Displays validation errors from model binding -->
+            @* <div asp-validation-summary="All" class="text-danger"></div> *@
+
+            <!-- Customer Drop Down Box -->
+            <div class="row mb-2">
+                <label asp-for="Property.Cust_ID" class="col-md-3 col-form-label">Customer</label>
+                <div class="col-md-7">
+                    <select asp-for="Property.Cust_ID" asp-items="@(new SelectList(Model.Customers, "Cust_ID", "Cust_Name"))" class="form-select">
+                        <option value="">Select a customer...</option>
+                    </select>
+                    <span asp-validation-for="Property.Cust_ID" class="text-danger"></span>
+                </div>
+            </div>   
+
+            <!-- Property Address -->
+            <div class="row mb-2">
+                <label asp-for="Property.Property_Address" class="col-md-3 col-form-label">Address</label>
+                <div class="col-md-7">
+                    <input asp-for="Property.Property_Address" class="form-control" />
+                    <span asp-validation-for="Property.Property_Address" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Property City -->
+            <div class="row mb-2">
+                <label asp-for="Property.Property_City" class="col-md-3 col-form-label">City</label>
+                <div class="col-md-7">
+                    <input asp-for="Property.Property_City" class="form-control" />
+                    <span asp-validation-for="Property.Property_City" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Property State -->
+            <div class="row mb-2">
+                <label asp-for="Property.Property_State" class="col-md-3 col-form-label">State</label>
+                <div class="col-md-7">
+                    <select asp-for="Property.Property_State" asp-items="Model.States" class="form-select">
+                        <option value="">Select a state...</option>
+                    </select>
+                    <span asp-validation-for="Property.Property_State" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Property ZIP Code -->
+            <div class="row mb-2">
+                <label asp-for="Property.Property_ZIP" class="col-md-3 col-form-label">ZIP Code</label>
+                <div class="col-md-7">
+                    <input asp-for="Property.Property_ZIP" class="form-control" />
+                    <span asp-validation-for="Property.Property_ZIP" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Service Fee -->
+            <div class="row mb-2">
+                <label asp-for="Property.Property_Service_Fee" class="col-md-3 col-form-label">Service Fee</label>
+                <div class="col-md-7">
+                    <input asp-for="Property.Property_Service_Fee" class="form-control" />
+                    <span asp-validation-for="Property.Property_Service_Fee" class="text-danger"></span>
+                </div>
+            </div>            
+
+            <!-- Hidden key used to detect Edit vs Add -->
+            <input type="hidden" asp-for="Property.Property_ID" />
+
+            <!-- Form actions -->
+            <div class="mt-3">
+                <button type="submit" class="btn btn-green">Save</button>
+                <a asp-action="List" class="btn btn-outline-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- jQuery libraries for validation -->
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>

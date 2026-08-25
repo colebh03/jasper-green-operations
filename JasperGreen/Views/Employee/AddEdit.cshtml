@@ -1,0 +1,110 @@
+﻿@*
+============================================================================
+AUTHOR:       Cole Howell
+COURSE:       ISTM 415
+PROGRAM:      AddEdit.cshtml (Employee Add/Edit View)
+
+PURPOSE:      Provides a form interface for creating and editing Employee
+              records, including personal and employment-related details.
+
+INPUT:        Employee model bound from the controller, along with ViewBag
+              data indicating the current action (Add or Edit).
+
+PROCESS:      Renders input fields bound to Employee properties and validates
+              user input before submission to the Save action.
+
+OUTPUT:       HTML form submission that results in inserting or updating an
+              Employee record in the database.
+
+HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
+              unauthorized aid on this academic work.
+============================================================================
+*@
+
+@model Employee
+
+@{
+    // Set page title based on controller-provided action ("Add" or "Edit")
+    string title = ViewBag.Action + " Employee";
+    ViewData["Title"] = title;
+}
+
+<div class="mx-auto" style="max-width: 900px;">
+    <h2 class="mt-3 mb-3">@ViewBag.Title</h2>
+
+    <div class="card-box shadow-sm p-3 mx-auto" style="max-width: 900px;">
+        <form asp-action="Save" method="post">
+
+            <!-- Displays validation errors from model binding -->
+            @* <div asp-validation-summary="All" class="text-danger"></div> *@
+
+            <!-- Employee First Name -->
+            <div class="row mb-2">
+                <label asp-for="Emp_First_Name" class="col-md-3 col-form-label">First Name</label>
+                <div class="col-md-7">
+                    <input asp-for="Emp_First_Name" class="form-control" />
+                    <span asp-validation-for="Emp_First_Name" class="text-danger"></span>
+                </div>
+            </div>   
+
+            <!-- Employee Last Name -->
+            <div class="row mb-2">
+                <label asp-for="Emp_Last_Name" class="col-md-3 col-form-label">Last Name</label>
+                <div class="col-md-7">
+                    <input asp-for="Emp_Last_Name" class="form-control" />
+                    <span asp-validation-for="Emp_Last_Name" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Employee SSN -->
+            <div class="row mb-2">
+                <label asp-for="Emp_SSN" class="col-md-3 col-form-label">SSN</label>
+                <div class="col-md-7">
+                    <input asp-for="Emp_SSN" class="form-control" />
+                    <span asp-validation-for="Emp_SSN" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Employee Job Title -->
+            <div class="row mb-2">
+                <label asp-for="Emp_Job_Title" class="col-md-3 col-form-label">Job Title</label>
+                <div class="col-md-7">
+                    <input asp-for="Emp_Job_Title" class="form-control" />
+                    <span asp-validation-for="Emp_Job_Title" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Employee Hire Date (Needs to be adjusted to date time box!) -->
+            <div class="row mb-2">
+                <label asp-for="Emp_Hire_Date" class="col-md-3 col-form-label">Hire Date</label>
+                <div class="col-md-7">
+                    <input asp-for="Emp_Hire_Date" class="form-control" type="date" />
+                    <span asp-validation-for="Emp_Hire_Date" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Employee Hourly Rate -->
+            <div class="row mb-2">
+                <label asp-for="Emp_Hourly_Rate" class="col-md-3 col-form-label">Hourly Rate</label>
+                <div class="col-md-7">
+                    <input asp-for="Emp_Hourly_Rate" class="form-control" />
+                    <span asp-validation-for="Emp_Hourly_Rate" class="text-danger"></span>
+                </div>
+            </div>            
+
+            <!-- Hidden key used to detect Edit vs Add -->
+            <input type="hidden" asp-for="Emp_ID" />
+
+            <!-- Form actions -->
+            <div class="mt-3">
+                <button type="submit" class="btn btn-green">Save</button>
+                <a asp-action="List" class="btn btn-outline-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- jQuery libraries for validation -->
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>

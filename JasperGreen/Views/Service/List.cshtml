@@ -1,0 +1,342 @@
+﻿@*
+============================================================================
+AUTHOR:       Cole Howell
+COURSE:       ISTM 415
+PROGRAM:      List.cshtml (Service Manager View)
+
+PURPOSE:      Displays a list of all service event records in a tabular format.
+              Provides options to add, edit, delete, and filter service events.
+
+INPUT:        - List<Service> model passed from the controller
+              - Related data (Customer, Property, Crew) for display
+
+PROCESS:      - Iterates through service records to populate table rows
+              - Displays key service details (date, customer, property, crew, fee)
+              - Provides filtering options via dropdown menu
+              - Generates action links for Edit, Delete, and Payment creation
+
+OUTPUT:       - Rendered HTML table of service events
+              - Navigation links for Add, Edit, Delete, and filtering actions
+
+HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
+              unauthorized aid on this academic work.
+============================================================================
+*@
+
+@model ServiceListViewModel
+
+@{
+    ViewData["Title"] = "Service Events";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0">Service Events</h2>              
+    <a asp-action="Add" class="btn btn-green">+ Add Service Event</a>
+</div>
+
+@* <div class="d-flex justify-content-between align-items-center mb-3">
+    <div class="d-flex gap-2 mb-3">
+        <a asp-action="GetCustomer" class="btn btn-outline-secondary">
+            By Customer
+        </a>
+
+        <a asp-action="GetProperty" class="btn btn-outline-secondary">
+            By Property
+        </a>
+
+        <a asp-action="GetCrew" class="btn btn-outline-secondary">
+            By Crew
+        </a>
+
+        <a asp-action="List" class="btn btn-outline-dark ms-auto">
+            Show All
+        </a>
+    </div>
+</div> *@
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+
+    <div class="dropdown">
+        <button class="btn btn-green dropdown-toggle" type="button" data-bs-toggle="dropdown">
+            Filter
+        </button>
+
+        @if (!string.IsNullOrEmpty(Model.CurrentFilterText))
+        {
+            <div class="mt-2">
+                <a asp-action="List" class="filter-tag">
+                    <span>@Model.CurrentFilterText</span>
+                    <i class="bi bi-x"></i>
+                </a>
+            </div>
+        }
+
+        <ul class="dropdown-menu">
+            <li>
+                <a class="dropdown-item" asp-action="GetCustomer">By Customer</a>
+            </li>
+            <li>
+                <a class="dropdown-item" asp-action="GetProperty">By Property</a>
+            </li>
+            <li>
+                <a class="dropdown-item" asp-action="GetCrew">By Crew</a>
+            </li>
+
+            <li><hr class="dropdown-divider"></li>
+
+            <li>
+                <a class="dropdown-item text-muted" asp-action="List">Show All</a>
+            </li>
+        </ul>
+    </div>
+
+</div>
+
+<div class="card-table shadow-sm p-0">
+    <div class="table-responsive">
+        <table class="table align-middle table-hover table-actions">
+            <thead class="table-light">
+                <tr>                
+                    <th>
+                        <span>Date</span>
+
+                        <a asp-action="List"
+                           asp-route-filter="@Model.Filter"
+                           asp-route-id="@Model.Id"
+                           asp-route-sortColumn="date"
+                           asp-route-sortDirection="@(Model.SortColumn == "date"
+                            ? (Model.SortDirection == "asc" ? "desc" : "asc")
+                            : "desc")"
+                           class="text-decoration-none ms-1 text-secondary px-1">
+
+                            @if (Model.SortColumn == "date")
+                            {
+                                if (Model.SortDirection == "asc")
+                                {
+                                    <i class="bi bi-caret-up-fill align-middle active-sort"></i>
+                                }
+                                else
+                                {
+                                    <i class="bi bi-caret-down-fill align-middle active-sort"></i>
+                                }
+                            }
+                            else
+                            {
+                                <i class="bi bi-caret-down align-middle"></i>
+                            }
+
+                        </a>
+                    </th>
+                    <th>
+                        <span>Customer</span>
+
+                        <a asp-action="List"
+                           asp-route-filter="@Model.Filter"
+                           asp-route-id="@Model.Id"
+                           asp-route-sortColumn="customer"
+                           asp-route-sortDirection="@(Model.SortColumn == "customer" && Model.SortDirection == "asc" ? "desc" : "asc")"
+                           class="text-decoration-none ms-1 text-secondary px-1">
+
+                            @if (Model.SortColumn == "customer")
+                            {
+                                if (Model.SortDirection == "asc")
+                                {
+                                    <i class="bi bi-caret-up-fill align-middle active-sort"></i>
+                                }
+                                else
+                                {
+                                    <i class="bi bi-caret-down-fill align-middle active-sort"></i>
+                                }
+                            }
+                            else
+                            {
+                                <i class="bi bi-caret-down align-middle"></i>
+                            }
+
+                        </a>
+                    </th>
+                    <th>
+                        <span>Property</span>
+
+                        <a asp-action="List"
+                           asp-route-filter="@Model.Filter"
+                           asp-route-id="@Model.Id"
+                           asp-route-sortColumn="property"
+                           asp-route-sortDirection="@(Model.SortColumn == "property" && Model.SortDirection == "asc" ? "desc" : "asc")"
+                           class="text-decoration-none ms-1 text-secondary px-1">
+
+                            @if (Model.SortColumn == "property")
+                            {
+                                if (Model.SortDirection == "asc")
+                                {
+                                    <i class="bi bi-caret-up-fill align-middle active-sort"></i>
+                                }
+                                else
+                                {
+                                    <i class="bi bi-caret-down-fill align-middle active-sort"></i>
+                                }
+                            }
+                            else
+                            {
+                                <i class="bi bi-caret-down align-middle"></i>
+                            }
+
+                        </a>
+                    </th>
+                    <th>
+                        <span>Crew</span>
+
+                        <a asp-action="List"
+                           asp-route-filter="@Model.Filter"
+                           asp-route-id="@Model.Id"
+                           asp-route-sortColumn="crew"
+                           asp-route-sortDirection="@(Model.SortColumn == "crew" && Model.SortDirection == "asc" ? "desc" : "asc")"
+                           class="text-decoration-none ms-1 text-secondary px-1">
+
+                            @if (Model.SortColumn == "crew")
+                            {
+                                if (Model.SortDirection == "asc")
+                                {
+                                    <i class="bi bi-caret-up-fill align-middle active-sort"></i>
+                                }
+                                else
+                                {
+                                    <i class="bi bi-caret-down-fill align-middle active-sort"></i>
+                                }
+                            }
+                            else
+                            {
+                                <i class="bi bi-caret-down align-middle"></i>
+                            }
+
+                        </a>
+                    </th>
+                    <th>
+                        <span>Fee</span>
+
+                        <a asp-action="List"
+                           asp-route-filter="@Model.Filter"
+                           asp-route-id="@Model.Id"
+                           asp-route-sortColumn="fee"
+                           asp-route-sortDirection="@(Model.SortColumn == "fee"
+                                ? (Model.SortDirection == "asc" ? "desc" : "asc")
+                                : "desc")"
+                           class="text-decoration-none ms-1 text-secondary px-1">
+
+                            @if (Model.SortColumn == "fee")
+                            {
+                                if (Model.SortDirection == "asc")
+                                {
+                                    <i class="bi bi-caret-up-fill align-middle active-sort"></i>
+                                }
+                                else
+                                {
+                                    <i class="bi bi-caret-down-fill align-middle active-sort"></i>
+                                }
+                            }
+                            else
+                            {
+                                <i class="bi bi-caret-down align-middle"></i>
+                            }
+
+                        </a>
+                    </th>
+                    <th style="width: 240px;"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var Service in Model.Services)
+                {
+                    <tr>                    
+                        <!-- Data -->
+                        <td>@Service.Service_Date.ToShortDateString()</td>
+                        <td class="truncate" title="@Service.Customer.Cust_Name">@Service.Customer.Cust_Name</td>
+                        <td>@Service.Property.Property_Full_Address</td>
+                        <td>@Service.Crew.CrewDisplayShort</td>
+                        <td>@Service.Service_Fee.ToString("C")</td>
+
+                        <!-- Actions -->
+                        <td class="text-end">
+
+                            <div class="d-inline-flex align-items-center gap-3">
+
+                                <!-- Payment -->
+                                @if (Service.Payment == null)
+                                {
+                                    <a asp-controller="Payment"
+                                       asp-action="Add"
+                                       asp-route-id="@Service.Service_ID"
+                                       title="Receive Payment">
+
+                                        <i class="bi bi-credit-card"
+                                           style="color:#4CAF50;"></i>
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a class="invisible">
+                                        <i class="bi bi-credit-card"></i>
+                                    </a>
+                                }
+
+                                <!-- Invoice -->
+                                <a asp-action="InvoicePdf"
+                                   asp-route-id="@Service.Service_ID"
+                                   target="_blank"
+                                   title="View Invoice">
+
+                                    <i class="bi bi-file-earmark-pdf-fill"
+                                       style="color:#dc3545;"></i>
+                                </a>
+
+                                <!-- Edit -->
+                                @if (Service.Payment == null)
+                                {
+                                    <a asp-action="Edit"
+                                       asp-route-id="@Service.Service_ID"
+                                       class="text-muted"
+                                       title="Edit">
+
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a class="invisible">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                }
+
+                                <!-- Delete / Paid -->
+                                @if (Service.Payment == null)
+                                {
+                                    <a asp-action="Delete"
+                                       asp-route-id="@Service.Service_ID"
+                                       class="text-danger"
+                                       title="Delete">
+
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a>
+                                        <i class="bi bi-check-circle-fill"
+                                           style="color:#4CAF50;"
+                                           title="Paid"></i>
+                                    </a>
+                                }
+
+                            </div>
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>    
+</div>
+
+
+
+

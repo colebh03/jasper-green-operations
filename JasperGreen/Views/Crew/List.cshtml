@@ -1,0 +1,185 @@
+﻿@*
+============================================================================
+AUTHOR:       Cole Howell
+COURSE:       ISTM 415
+PROGRAM:      List.cshtml (Crew Manager View)
+
+PURPOSE:      Displays a tabular list of all Crew records, including assigned
+              employees, and provides navigation for editing or deleting crews.
+
+INPUT:        List<Crew> containing crew records with associated employee
+              navigation properties (Foreman, CrewMember1, CrewMember2).
+
+PROCESS:      Iterates through the collection of Crew objects and renders each
+              as a row in a responsive table with action controls.
+
+OUTPUT:       HTML table displaying crew data with links to Edit and Delete
+              actions for each record.
+
+HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
+              unauthorized aid on this academic work.
+============================================================================
+*@
+
+@model CrewListViewModel
+<!-- Error for deletion of crew when associated with service records -->
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+
+@{
+    ViewData["Title"] = "Crews";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0">Crews</h2>              
+    <a asp-action="Add" class="btn btn-green">+ Add Crew</a>
+</div>
+
+<div class="card-table shadow-sm p-0">
+    <div class="table-responsive">
+        <table class="table align-middle table-hover table-actions">
+            <thead class="table-light">
+                <tr>                
+                    <th>
+                        <span>Foreman</span>
+
+                        <a asp-action="List"
+                           asp-route-filter="@Model.Filter"
+                           asp-route-id="@Model.Id"
+                           asp-route-sortColumn="foreman"
+                           asp-route-sortDirection="@(Model.SortColumn == "foreman" && Model.SortDirection == "asc" ? "desc" : "asc")"
+                           class="text-decoration-none ms-1 text-secondary px-1">
+
+                            @if (Model.SortColumn == "foreman")
+                            {
+                                if (Model.SortDirection == "asc")
+                                {
+                                    <i class="bi bi-caret-up-fill align-middle active-sort"></i>
+                                }
+                                else
+                                {
+                                    <i class="bi bi-caret-down-fill align-middle active-sort"></i>
+                                }
+                            }
+                            else
+                            {
+                                <i class="bi bi-caret-down align-middle"></i>
+                            }
+
+                        </a>
+                    </th>
+                    <th>
+                        <span>Member 1</span>
+
+                        <a asp-action="List"
+                           asp-route-filter="@Model.Filter"
+                           asp-route-id="@Model.Id"
+                           asp-route-sortColumn="member1"
+                           asp-route-sortDirection="@(Model.SortColumn == "member1" && Model.SortDirection == "asc" ? "desc" : "asc")"
+                           class="text-decoration-none ms-1 text-secondary px-1">
+
+                            @if (Model.SortColumn == "member1")
+                            {
+                                if (Model.SortDirection == "asc")
+                                {
+                                    <i class="bi bi-caret-up-fill align-middle active-sort"></i>
+                                }
+                                else
+                                {
+                                    <i class="bi bi-caret-down-fill align-middle active-sort"></i>
+                                }
+                            }
+                            else
+                            {
+                                <i class="bi bi-caret-down align-middle"></i>
+                            }
+
+                        </a>
+                    </th>
+                    <th>
+                        <span>Member 2</span>
+
+                        <a asp-action="List"
+                           asp-route-filter="@Model.Filter"
+                           asp-route-id="@Model.Id"
+                           asp-route-sortColumn="member2"
+                           asp-route-sortDirection="@(Model.SortColumn == "member2" && Model.SortDirection == "asc" ? "desc" : "asc")"
+                           class="text-decoration-none ms-1 text-secondary px-1">
+
+                            @if (Model.SortColumn == "member2")
+                            {
+                                if (Model.SortDirection == "asc")
+                                {
+                                    <i class="bi bi-caret-up-fill align-middle active-sort"></i>
+                                }
+                                else
+                                {
+                                    <i class="bi bi-caret-down-fill align-middle active-sort"></i>
+                                }
+                            }
+                            else
+                            {
+                                <i class="bi bi-caret-down align-middle"></i>
+                            }
+
+                        </a>
+                    </th>
+                    <th style="width: 160px;"></th>                    
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var crew in Model.Crews)
+                {
+                    <tr>                    
+                        <!-- Data -->
+                        <td>@crew.Foreman.Emp_Full_Name</td>
+                        <td>@crew.CrewMember1.Emp_Full_Name</td>
+                        <td>@crew.CrewMember2.Emp_Full_Name</td>
+
+                        <!-- Actions (3-dot menu) -->
+                        <td class="text-end">
+                            @* <div class="dropdown">
+                                <button class="btn btn-sm btn-link text-dark" data-bs-toggle="dropdown">
+                                    <i class="bi bi-three-dots-vertical  "></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li>
+                                        <a class="dropdown-item"
+                                            asp-action="Edit"
+                                            asp-route-id="@crew.Crew_ID">
+                                            Edit
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item text-danger"
+                                            asp-action="Delete"
+                                            asp-route-id="@crew.Crew_ID">
+                                            Delete
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div> *@
+                            <div class="d-inline-flex align-items-center gap-3">
+                                <a asp-action="Edit" asp-route-id="@crew.Crew_ID" class="text-muted" title="Edit">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+
+                                <a asp-action="Delete" asp-route-id="@crew.Crew_ID" class="text-danger" title="Delete">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>    
+</div>
+
+
+
+

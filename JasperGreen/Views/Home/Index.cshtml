@@ -1,0 +1,229 @@
+@{
+    Layout = "_LayoutPublic";
+    ViewData["Title"] = "Home";
+}
+
+<section class="public-hero reveal-on-scroll">
+    <img src="~/images/landscaping-hero.png" alt="Freshly maintained residential landscape by Jasper Green" class="public-hero-image" />
+    <div class="public-hero-overlay"></div>
+    <div class="container public-hero-content">
+        <div class="row">
+            <div class="col-lg-7">
+                <p class="public-eyebrow">Residential and commercial landscaping</p>
+                <h1>Jasper Green</h1>
+                <p class="public-hero-copy">
+                    Thoughtful landscape maintenance, clean curb appeal, and dependable property care from a team that treats every outdoor space like it matters.
+                </p>
+                <div class="public-hero-actions">
+                    <a asp-controller="Home" asp-action="Contact" class="btn btn-light btn-lg public-premium-btn">Request a Consultation</a>
+                    <a href="#services" class="btn btn-outline-light btn-lg public-ghost-btn">View Services</a>
+                </div>
+                <p class="public-hero-support">Free service conversations, flexible recurring plans, and responsive local support.</p>
+                <div class="public-hero-badges" aria-label="Jasper Green service highlights">
+                    <span><i class="bi bi-houses-fill"></i> Residential + Commercial</span>
+                    <span><i class="bi bi-arrow-repeat"></i> Recurring Property Care</span>
+                    <span><i class="bi bi-brightness-alt-high-fill"></i> Seasonal Cleanup</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="public-section reveal-on-scroll">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-5">
+                <p class="public-eyebrow text-success">Outdoor care with follow-through</p>
+                <h2 class="public-section-title">Landscaping that keeps properties ready for every season.</h2>
+            </div>
+            <div class="col-lg-7">
+                <p class="public-large-copy">
+                    Jasper Green helps homeowners, property managers, and local businesses keep outdoor spaces healthy, welcoming, and professionally maintained. From routine lawn care to coordinated crews and seasonal cleanup, our work is built around reliable scheduling and clear communication.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="public-section public-section-soft reveal-on-scroll" id="services">
+    <div class="container">
+        <div class="d-flex flex-column flex-md-row justify-content-between gap-3 mb-4">
+            <div>
+                <p class="public-eyebrow text-success">Services</p>
+                <h2 class="public-section-title mb-0">Complete landscape support</h2>
+            </div>
+            <a asp-controller="Home" asp-action="Contact" class="btn btn-green align-self-md-end">Plan Your Service</a>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-6 col-xl-4">
+                <div class="public-service-card reveal-on-scroll">
+                    <i class="bi bi-tree-fill"></i>
+                    <h3>Lawn Maintenance</h3>
+                    <p>Mowing, edging, trimming, and consistent upkeep for polished outdoor spaces.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
+                <div class="public-service-card reveal-on-scroll">
+                    <i class="bi bi-flower1"></i>
+                    <h3>Planting and Beds</h3>
+                    <p>Seasonal color, bed refreshes, mulch, pruning, and detail work that lifts curb appeal.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
+                <div class="public-service-card reveal-on-scroll">
+                    <i class="bi bi-building"></i>
+                    <h3>Commercial Grounds</h3>
+                    <p>Reliable exterior care for offices, storefronts, rental properties, and managed sites.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
+                <div class="public-service-card reveal-on-scroll">
+                    <i class="bi bi-droplet-fill"></i>
+                    <h3>Irrigation Support</h3>
+                    <p>Water-conscious maintenance checks that help landscapes stay strong in Texas heat.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
+                <div class="public-service-card reveal-on-scroll">
+                    <i class="bi bi-house-check-fill"></i>
+                    <h3>Property Care</h3>
+                    <p>Recurring exterior services tailored to residential and commercial property needs.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
+                <div class="public-service-card reveal-on-scroll">
+                    <i class="bi bi-calendar-check-fill"></i>
+                    <h3>Seasonal Cleanup</h3>
+                    <p>Cleanups, refreshes, and preparation for the changing demands of each season.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="public-section reveal-on-scroll">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="public-stat">
+                    <span>01</span>
+                    <h3>Professional Crews</h3>
+                    <p>Uniform standards, steady communication, and clean completion on every visit.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="public-stat">
+                    <span>02</span>
+                    <h3>Planned Scheduling</h3>
+                    <p>Service rhythms that keep your property from slipping between busy weeks.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="public-stat">
+                    <span>03</span>
+                    <h3>Local Property Focus</h3>
+                    <p>Care practices shaped around local lawns, plantings, weather, and expectations.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="public-section public-work-section reveal-on-scroll">
+    <div class="container">
+        <div class="public-section-heading">
+            <div>
+                <p class="public-eyebrow text-success">Work showcase</p>
+                <h2 class="public-section-title mb-0">See the difference in every detail.</h2>
+            </div>
+            <div class="public-carousel-controls" aria-label="Portfolio navigation">
+                <button type="button" aria-label="Previous portfolio item"><i class="bi bi-arrow-left"></i></button>
+                <button type="button" aria-label="Next portfolio item"><i class="bi bi-arrow-right"></i></button>
+            </div>
+        </div>
+
+        <div class="public-work-grid">
+            <article class="public-work-card public-work-lawn reveal-on-scroll">
+                <div>
+                    <span>Lawn Maintenance</span>
+                    <h3>Clean lines and healthy weekly curb appeal.</h3>
+                </div>
+            </article>
+            <article class="public-work-card public-work-beds reveal-on-scroll">
+                <div>
+                    <span>Planting Beds</span>
+                    <h3>Fresh mulch, color, and bed definition.</h3>
+                </div>
+            </article>
+            <article class="public-work-card public-work-commercial reveal-on-scroll">
+                <div>
+                    <span>Commercial Grounds</span>
+                    <h3>Welcoming exteriors for high-traffic properties.</h3>
+                </div>
+            </article>
+            <article class="public-work-card public-work-seasonal reveal-on-scroll">
+                <div>
+                    <span>Seasonal Cleanup</span>
+                    <h3>Ready-for-the-season outdoor refreshes.</h3>
+                </div>
+            </article>
+        </div>
+    </div>
+</section>
+
+<section class="public-section public-section-soft reveal-on-scroll">
+    <div class="container">
+        <div class="text-center mx-auto public-narrow-heading">
+            <p class="public-eyebrow text-success">Customer notes</p>
+            <h2 class="public-section-title">A calmer way to care for your property.</h2>
+        </div>
+        <div class="row g-4 mt-2">
+            <div class="col-md-4">
+                <figure class="public-testimonial-card reveal-on-scroll">
+                    <blockquote>"The crew keeps our property looking sharp without us having to chase updates."</blockquote>
+                    <figcaption>
+                        <strong>Sample homeowner</strong>
+                        <span>Residential maintenance</span>
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-md-4">
+                <figure class="public-testimonial-card reveal-on-scroll">
+                    <blockquote>"Scheduling is clear, the work is consistent, and our storefront feels cared for."</blockquote>
+                    <figcaption>
+                        <strong>Sample business manager</strong>
+                        <span>Commercial grounds</span>
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-md-4">
+                <figure class="public-testimonial-card reveal-on-scroll">
+                    <blockquote>"Seasonal cleanup made the whole yard feel refreshed before guests arrived."</blockquote>
+                    <figcaption>
+                        <strong>Sample property owner</strong>
+                        <span>Seasonal service</span>
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="public-contact-band reveal-on-scroll">
+    <div class="container">
+        <div class="row align-items-center g-4">
+            <div class="col-lg-8">
+                <p class="public-eyebrow">Ready when you are</p>
+                <h2>Let Jasper Green bring order, color, and lasting care to your property.</h2>
+                <p class="public-cta-copy">Tell us what your property needs and we will help you shape the right maintenance rhythm, cleanup plan, or commercial grounds approach.</p>
+            </div>
+            <div class="col-lg-4">
+                <div class="public-cta-actions">
+                    <a asp-controller="Home" asp-action="Contact" class="btn btn-light btn-lg">Contact Us</a>
+                    <a asp-controller="Home" asp-action="Contact" class="btn btn-outline-light btn-lg">Request a Consultation</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,174 @@
+@model DashboardViewModel
+
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="admin-dashboard">
+    <section class="admin-command mb-4">
+        <div class="admin-command-copy">
+            <p class="admin-label">Administrator Portal</p>
+            <h1>Jasper Green Operations</h1>
+            <p>
+                Keep the business moving with quick access to customers, properties, services, crews, employees, payments, and system users.
+            </p>
+            <div class="d-flex flex-wrap gap-2">
+                <a asp-controller="Service" asp-action="List" class="btn btn-green">
+                    <i class="bi bi-calendar-check me-1"></i>
+                    Review Services
+                </a>
+                <a asp-controller="Customer" asp-action="List" class="btn btn-outline-success">
+                    <i class="bi bi-person-plus me-1"></i>
+                    Manage Customers
+                </a>
+                <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary">
+                    <i class="bi bi-globe2 me-1"></i>
+                    Public Site
+                </a>
+            </div>
+        </div>
+
+        <div class="admin-command-panel">
+            <span>Last 30 Days Revenue</span>
+            <strong>@Model.TotalRevenue.ToString("C")</strong>
+            @if (Model.HasPreviousMonthData)
+            {
+                <small class="@(Model.RevenueIncreased ? "text-success" : "text-danger")">
+                    @(Model.RevenueIncreased ? "+" : "-")@Model.MonthlyRevenueChange.ToString("0.0")% vs previous 30 days
+                </small>
+            }
+            else
+            {
+                <small class="text-muted">No previous 30-day comparison data</small>
+            }
+        </div>
+    </section>
+
+    <section class="row g-3 mb-4">
+        <div class="col-sm-6 col-xl-3">
+            <a asp-controller="Customer" asp-action="List" class="admin-metric">
+                <i class="bi bi-people-fill"></i>
+                <span>Customers</span>
+                <strong>@Model.TotalCustomers</strong>
+            </a>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <a asp-controller="Property" asp-action="List" class="admin-metric">
+                <i class="bi bi-house-door-fill"></i>
+                <span>Properties</span>
+                <strong>@Model.TotalProperties</strong>
+            </a>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <a asp-controller="Crew" asp-action="List" class="admin-metric">
+                <i class="bi bi-diagram-3-fill"></i>
+                <span>Crews</span>
+                <strong>@Model.TotalCrews</strong>
+            </a>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <a asp-controller="Employee" asp-action="List" class="admin-metric">
+                <i class="bi bi-person-badge-fill"></i>
+                <span>Employees</span>
+                <strong>@Model.TotalEmployees</strong>
+            </a>
+        </div>
+    </section>
+
+    <div class="row g-4">
+        <div class="col-xl-8">
+            <section class="admin-panel">
+                <div class="admin-panel-heading">
+                    <div>
+                        <p class="admin-label">Management</p>
+                        <h2>Core Workflows</h2>
+                    </div>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <a asp-controller="Customer" asp-action="List" class="admin-workflow-card">
+                            <i class="bi bi-people-fill"></i>
+                            <span>Customer Management</span>
+                            <small>Maintain customer records and contact details.</small>
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <a asp-controller="Property" asp-action="List" class="admin-workflow-card">
+                            <i class="bi bi-houses-fill"></i>
+                            <span>Property Management</span>
+                            <small>Track properties, addresses, and owner assignments.</small>
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <a asp-controller="Service" asp-action="List" class="admin-workflow-card">
+                            <i class="bi bi-calendar2-check-fill"></i>
+                            <span>Service Management</span>
+                            <small>Review service work, schedules, fees, and crews.</small>
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <a asp-controller="Payment" asp-action="List" class="admin-workflow-card">
+                            <i class="bi bi-credit-card-fill"></i>
+                            <span>Payment Management</span>
+                            <small>Monitor payment history and customer balances.</small>
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <a asp-controller="Employee" asp-action="List" class="admin-workflow-card">
+                            <i class="bi bi-person-vcard-fill"></i>
+                            <span>Employee Management</span>
+                            <small>Manage employee records and hourly details.</small>
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <a asp-controller="Crew" asp-action="List" class="admin-workflow-card">
+                            <i class="bi bi-diagram-3-fill"></i>
+                            <span>Crew Management</span>
+                            <small>Organize foremen and crew member assignments.</small>
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <a asp-controller="User" asp-action="Index" class="admin-workflow-card">
+                            <i class="bi bi-person-gear"></i>
+                            <span>User Management</span>
+                            <small>Manage Identity users and administrator access.</small>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="col-xl-4">
+            <section class="admin-panel h-100">
+                <div class="admin-panel-heading">
+                    <div>
+                        <p class="admin-label">Pulse</p>
+                        <h2>Recent Activity</h2>
+                    </div>
+                    <span class="admin-pill">@Model.WeeklyServices services this week</span>
+                </div>
+
+                <div class="admin-activity-list">
+                    @if (Model.RecentActivities.Any())
+                    {
+                        foreach (var activity in Model.RecentActivities)
+                        {
+                            <div class="admin-activity-item">
+                                <div class="admin-activity-date">@activity.Date.ToString("MMM d")</div>
+                                <div>
+                                    <strong>@activity.CrewName</strong>
+                                    <span>completed service at @activity.Address</span>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <p class="text-muted mb-0">No recent service activity found.</p>
+                    }
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

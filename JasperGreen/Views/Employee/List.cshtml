@@ -1,0 +1,188 @@
+﻿@*
+============================================================================
+AUTHOR:       Cole Howell
+COURSE:       ISTM 415
+PROGRAM:      List.cshtml (Employee Manager View)
+
+PURPOSE:      Displays a tabular list of all Employee records and provides
+              navigation for adding, editing, and deleting employees.
+
+INPUT:        List<Employee> containing employee data retrieved from the
+              database.
+
+PROCESS:      Iterates through the collection of Employee objects and renders
+              each as a row in a responsive table with action controls.
+
+OUTPUT:       HTML table displaying employee information with links to Edit
+              and Delete actions for each record.
+
+HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
+              unauthorized aid on this academic work.
+============================================================================
+*@
+
+@model EmployeeListViewModel
+
+<!-- Error if employee is in a crew, employees must be removed from crew before deletion. -->
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+
+@{
+    ViewData["Title"] = "Employees";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0">Employees</h2>              
+    <a asp-action="Add" class="btn btn-green">+ Add Employee</a>
+</div>
+
+<div class="card-table shadow-sm p-0">
+    <div class="table-responsive">
+        <table class="table align-middle table-hover table-actions">
+            <thead class="table-light">
+                <tr>                
+                    <th>
+                        <span>Name</span>
+
+                        <a asp-action="List"
+                           asp-route-filter="@Model.Filter"
+                           asp-route-id="@Model.Id"
+                           asp-route-sortColumn="name"
+                           asp-route-sortDirection="@(Model.SortColumn == "name" && Model.SortDirection == "asc" ? "desc" : "asc")"
+                           class="text-decoration-none ms-1 text-secondary px-1">
+
+                            @if (Model.SortColumn == "name")
+                            {
+                                if (Model.SortDirection == "asc")
+                                {
+                                    <i class="bi bi-caret-up-fill align-middle active-sort"></i>
+                                }
+                                else
+                                {
+                                    <i class="bi bi-caret-down-fill align-middle active-sort"></i>
+                                }
+                            }
+                            else
+                            {
+                                <i class="bi bi-caret-down align-middle"></i>
+                            }
+
+                        </a>
+                    </th>
+                    <th>
+                        <span>Job Title</span>
+
+                        <a asp-action="List"
+                           asp-route-filter="@Model.Filter"
+                           asp-route-id="@Model.Id"
+                           asp-route-sortColumn="jobtitle"
+                           asp-route-sortDirection="@(Model.SortColumn == "jobtitle" && Model.SortDirection == "asc" ? "desc" : "asc")"
+                           class="text-decoration-none ms-1 text-secondary px-1">
+
+                            @if (Model.SortColumn == "jobtitle")
+                            {
+                                if (Model.SortDirection == "asc")
+                                {
+                                    <i class="bi bi-caret-up-fill align-middle active-sort"></i>
+                                }
+                                else
+                                {
+                                    <i class="bi bi-caret-down-fill align-middle active-sort"></i>
+                                }
+                            }
+                            else
+                            {
+                                <i class="bi bi-caret-down align-middle"></i>
+                            }
+
+                        </a>
+                    </th>
+                    <th>
+                        <span>Hire Date</span>
+
+                        <a asp-action="List"
+                           asp-route-filter="@Model.Filter"
+                           asp-route-id="@Model.Id"
+                           asp-route-sortColumn="hiredate"
+                           asp-route-sortDirection="@(Model.SortColumn == "fee"
+                                ? (Model.SortDirection == "asc" ? "desc" : "asc")
+                                : "desc")"
+                           class="text-decoration-none ms-1 text-secondary px-1">
+
+                            @if (Model.SortColumn == "hiredate")
+                            {
+                                if (Model.SortDirection == "asc")
+                                {
+                                    <i class="bi bi-caret-up-fill align-middle active-sort"></i>
+                                }
+                                else
+                                {
+                                    <i class="bi bi-caret-down-fill align-middle active-sort"></i>
+                                }
+                            }
+                            else
+                            {
+                                <i class="bi bi-caret-down align-middle"></i>
+                            }
+
+                        </a>
+                    </th>
+                    <th style="width: 160px;"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var employee in Model.Employees)
+                {
+                    <tr>                    
+                        <!-- Data -->
+                        <td class="truncate" title="@employee.Emp_Full_Name">@employee.Emp_Full_Name</td>
+                        <td>@employee.Emp_Job_Title</td>
+                        <td>@employee.Emp_Hire_Date</td>
+
+                        <!-- Actions (3-dot menu) -->
+                        <td class="text-end">
+                            @* <div class="dropdown">
+                                <button class="btn btn-sm btn-link text-dark" data-bs-toggle="dropdown">
+                                    <i class="bi bi-three-dots-vertical  "></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li>
+                                        <a class="dropdown-item"
+                                            asp-action="Edit"
+                                            asp-route-id="@employee.Emp_ID">
+                                            Edit
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item text-danger"
+                                            asp-action="Delete"
+                                            asp-route-id="@employee.Emp_ID">
+                                            Delete
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div> *@
+                            <div class="d-inline-flex align-items-center gap-3">
+                                <a asp-action="Edit" asp-route-id="@employee.Emp_ID" class="text-muted" title="Edit">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+
+                                <a asp-action="Delete" asp-route-id="@employee.Emp_ID" class="text-danger" title="Delete">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>    
+</div>
+
+
+
+

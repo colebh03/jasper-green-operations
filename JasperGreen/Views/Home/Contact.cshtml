@@ -1,0 +1,131 @@
+@{
+    Layout = "_LayoutPublic";
+    ViewData["Title"] = "Contact";
+}
+
+<section class="public-page-header reveal-on-scroll">
+    <div class="container">
+        <p class="public-eyebrow text-success">Contact Jasper Green</p>
+        <h1>Tell us what your property needs.</h1>
+        <p>
+            Reach out for landscape maintenance, seasonal cleanup, commercial grounds care, or a recurring service plan.
+        </p>
+    </div>
+</section>
+
+<section class="public-section reveal-on-scroll">
+    <div class="container">
+        <div class="row g-4 g-lg-5">
+            <div class="col-lg-5">
+                <div class="public-contact-panel">
+                    <h2>Start here</h2>
+                    <p>
+                        Our team will review your property needs, service timing, and preferred maintenance rhythm.
+                    </p>
+
+                    <div class="public-contact-item">
+                        <i class="bi bi-telephone-fill"></i>
+                        <div>
+                            <strong>Phone</strong>
+                            <span>(979) 555-0148</span>
+                        </div>
+                    </div>
+
+                    <div class="public-contact-item">
+                        <i class="bi bi-envelope-fill"></i>
+                        <div>
+                            <strong>Email</strong>
+                            <span>hello@jaspergreen.example</span>
+                        </div>
+                    </div>
+
+                    <div class="public-contact-item">
+                        <i class="bi bi-geo-alt-fill"></i>
+                        <div>
+                            <strong>Office</strong>
+                            <span>123 Greenway Drive, College Station, TX 77840</span>
+                        </div>
+                    </div>
+
+                    <div class="public-service-area-note">
+                        <strong>Service area</strong>
+                        <span>Serving College Station, Bryan, and nearby Brazos Valley properties for residential and commercial care.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-7">
+                <form class="public-contact-form" action="#" method="post">
+                    <div class="public-form-heading">
+                        <p class="public-eyebrow text-success">Service request</p>
+                        <h2>Request a consultation.</h2>
+                        <p>Share a few details and Jasper Green can follow up with the right next step.</p>
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label" for="contactName">Name</label>
+                            <input class="form-control form-control-lg" id="contactName" name="Name" type="text" autocomplete="name" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" for="contactEmail">Email</label>
+                            <input class="form-control form-control-lg" id="contactEmail" name="Email" type="email" autocomplete="email" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" for="contactPhone">Phone</label>
+                            <input class="form-control form-control-lg" id="contactPhone" name="Phone" type="tel" autocomplete="tel" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" for="propertyType">Property Type</label>
+                            <select class="form-select form-select-lg" id="propertyType" name="PropertyType">
+                                <option selected>Residential</option>
+                                <option>Commercial</option>
+                                <option>Managed property</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label" for="serviceNeeded">Service Needed</label>
+                            <select class="form-select form-select-lg" id="serviceNeeded" name="ServiceNeeded">
+                                <option selected>Lawn maintenance</option>
+                                <option>Planting beds</option>
+                                <option>Commercial grounds care</option>
+                                <option>Seasonal cleanup</option>
+                                <option>Irrigation support</option>
+                                <option>Recurring property care</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label" for="contactMessage">Message</label>
+                            <textarea class="form-control" id="contactMessage" name="Message" rows="5" placeholder="Tell us about property size, timing, current concerns, or recurring service goals."></textarea>
+                        </div>
+                        <div class="col-12">
+                            <button type="button" class="btn btn-green btn-lg public-premium-btn">Send Request</button>
+                            <p class="public-form-note">Demo form UI only. For immediate help, call or email Jasper Green directly.</p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="row g-4 mt-4">
+            <div class="col-md-4">
+                <div class="public-check-card reveal-on-scroll">
+                    <i class="bi bi-house-door"></i>
+                    <span>Homes, storefronts, rentals, and managed property exteriors</span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="public-check-card reveal-on-scroll">
+                    <i class="bi bi-list-check"></i>
+                    <span>Routine mowing, bed care, cleanup, and seasonal refreshes</span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="public-check-card reveal-on-scroll">
+                    <i class="bi bi-calendar-event"></i>
+                    <span>Recurring schedules and one-time project conversations</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

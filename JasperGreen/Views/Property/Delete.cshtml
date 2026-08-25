@@ -1,0 +1,55 @@
+﻿@*
+============================================================================
+AUTHOR:       Cole Howell
+COURSE:       ISTM 415
+PROGRAM:      Delete.cshtml (Property Delete Confirmation View)
+
+PURPOSE:      Provides a confirmation interface for deleting a Property
+              record, ensuring the user verifies the action before removal.
+
+INPUT:        Property object retrieved from the database, including related
+              Customer data for identification.
+
+PROCESS:      Displays property details and prompts the user to confirm
+              deletion via a POST request to the controller.
+
+OUTPUT:       Form submission that results in deletion of the Property record
+              or cancellation returning to the list view.
+
+HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
+              unauthorized aid on this academic work.
+============================================================================
+*@
+
+@model Property
+
+@{
+    // Set the page title for display in the layout and browser tab.
+    string title = "Delete Property";
+    ViewData["Title"] = title;
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Confirm Deletion</h2>
+</div>
+    <!-- Warning message displayed prominently to alert the user -->
+    <p class="bg-danger text-light p-3">
+        Are you sure you want to delete the following property from the database?
+    </p>
+
+    <!-- Display the property address so the user knows which record is affected -->
+    <h3>@Model.Property_Full_Address</h3>
+    <h3>@Model.Customer.Cust_Name</h3>
+
+    <!--
+        The form posts to the Delete action method in the controller.
+        A hidden field is used to pass the Property_ID so the correct record
+        can be located and removed.
+    -->
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="Property_ID" />
+
+        <!-- Confirmation buttons: Delete (submits) or Cancel (returns to list) -->
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a asp-action="List" class="btn btn-outline-secondary">Cancel</a>
+    </form>

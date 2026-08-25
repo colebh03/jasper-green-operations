@@ -1,0 +1,139 @@
+@{
+    string c = ViewContext.RouteData.Values["controller"]?.ToString() ?? "";
+    string a = ViewContext.RouteData.Values["action"]?.ToString() ?? "";
+    bool isAuthenticated = User.Identity?.IsAuthenticated ?? false;
+    bool isAdmin = User.IsInRole("Admin");
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - JasperGreen</title>
+    <link rel="icon" href="~/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+
+<body class="public-body">
+    <header class="public-site-header">
+        <nav class="navbar navbar-expand-lg navbar-light public-navbar" data-public-navbar>
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center gap-2" asp-controller="Home" asp-action="Index">
+                    <img src="~/images/logo.png" alt="Jasper Green Logo" class="public-logo" />
+                </a>
+
+                <button class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#publicNavbar"
+                        aria-controls="publicNavbar"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="publicNavbar">
+                    <ul class="navbar-nav mx-lg-auto">
+                        <li class="nav-item">
+                            <a class="nav-link public-nav-link @(c == "Home" && a == "Index" ? "active" : "")"
+                               asp-controller="Home"
+                               asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link public-nav-link @(c == "Home" && a == "About" ? "active" : "")"
+                               asp-controller="Home"
+                               asp-action="About">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link public-nav-link @(c == "Home" && a == "Contact" ? "active" : "")"
+                               asp-controller="Home"
+                               asp-action="Contact">Contact</a>
+                        </li>
+                    </ul>
+
+                    <div class="public-nav-actions">
+                        @if (isAuthenticated && isAdmin)
+                        {
+                            <a asp-controller="Admin" asp-action="Index" class="btn btn-outline-success">Dashboard</a>
+                            <form method="post" asp-controller="Account" asp-action="LogOut">
+                                <button type="submit" class="btn btn-green">Logout</button>
+                            </form>
+                        }
+                        else if (isAuthenticated)
+                        {
+                            <form method="post" asp-controller="Account" asp-action="LogOut">
+                                <button type="submit" class="btn btn-green">Logout</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <a asp-controller="Account" asp-action="LogIn" class="btn btn-green">Employee Login</a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main role="main">
+        @RenderBody()
+    </main>
+
+    <footer class="public-footer-section">
+        <div class="container">
+            <div class="row g-4 g-lg-5 align-items-start">
+                <div class="col-lg-4 col-md-6">
+                    <img src="~/images/logo.png" alt="Jasper Green Logo" class="public-footer-logo mb-3" />
+                    <p class="public-footer-blurb mb-0">
+                        Professional landscaping, recurring property care, and seasonal outdoor maintenance for homes and businesses around College Station.
+                    </p>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h2>Visit</h2>
+                    <p>
+                        123 Greenway Drive<br />
+                        College Station, TX 77840
+                    </p>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h2>Contact</h2>
+                    <p>
+                        (979) 555-0148<br />
+                        hello@jaspergreen.example
+                    </p>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h2>Quick Links</h2>
+                    <ul class="public-footer-links">
+                        <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li><a asp-controller="Home" asp-action="About">About</a></li>
+                        <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
+                        <li><a asp-controller="Account" asp-action="LogIn">Employee Login</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h2>Services</h2>
+                    <ul class="public-footer-links">
+                        <li>Lawn Maintenance</li>
+                        <li>Planting Beds</li>
+                        <li>Commercial Grounds</li>
+                        <li>Seasonal Cleanup</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="public-footer-bottom">
+                <span>&copy; @DateTime.Now.Year Jasper Green</span>
+                <span>Landscape care with clear communication and reliable scheduling.</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

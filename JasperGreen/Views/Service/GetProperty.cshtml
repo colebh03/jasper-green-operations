@@ -1,0 +1,59 @@
+﻿@*
+============================================================================
+AUTHOR:       Cole Howell
+COURSE:       ISTM 415
+PROGRAM:      GetProperty.cshtml
+
+PURPOSE:      Displays a selection form for filtering service events by Property.
+              Allows the user to choose a property before applying the filter.
+
+INPUT:        - PropertyFilterViewModel containing list of Properties
+              - User selection of Property_ID from dropdown
+
+PROCESS:      - Renders dropdown populated with available properties
+              - Validates that a property is selected
+              - Submits selected Property_ID to controller for filtering
+
+OUTPUT:       - Rendered form for property selection
+              - Redirect to filtered service list based on selected property
+
+HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
+              unauthorized aid on this academic work.
+============================================================================
+*@
+
+@model PropertyFilterViewModel
+
+@{
+    ViewData["Title"] = "Select Property";
+}
+
+<div class="mx-auto" style="max-width: 900px;">
+    <h2 class="mt-3 mb-3">Select Property</h2>
+
+    <div class="card-box shadow-sm p-3 mx-auto" style="max-width: 900px;">
+        <form asp-action="GetProperty" method="post">
+
+            <!-- Property Drop Down Box -->
+            <div class="row mb-2">
+                <label asp-for="Property_ID" class="col-md-3 col-form-label">Property</label>
+
+                <div class="col-md-7">
+                    <select asp-for="Property_ID"
+                            asp-items="@(new SelectList(Model.Properties, "Property_ID", "Property_Full_Address"))"
+                            class="form-select">
+                        <option value="">Select a property...</option>
+                    </select>
+
+                    <span asp-validation-for="Property_ID" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mt-3">
+                <button type="submit" class="btn btn-green">Select</button>
+                <a asp-action="List" class="btn btn-outline-secondary">Cancel</a>
+            </div>
+
+        </form>
+    </div>
+</div>

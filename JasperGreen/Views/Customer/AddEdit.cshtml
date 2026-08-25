@@ -1,0 +1,121 @@
+﻿@*
+============================================================================
+AUTHOR:       Cole Howell
+COURSE:       ISTM 415
+PROGRAM:      AddEdit.cshtml (Customer Add/Edit View)
+
+PURPOSE:      Provides a form interface for creating and editing Customer
+              records, including personal and billing information.
+
+INPUT:        Customer model bound from the controller, along with ViewBag
+              data (Action and States) used for UI rendering.
+
+PROCESS:      Renders input fields bound to Customer properties and validates
+              user input before submission to the Save action.
+
+OUTPUT:       HTML form submission that results in inserting or updating a
+              Customer record in the database.
+
+HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
+              unauthorized aid on this academic work.
+============================================================================
+*@
+
+@model Customer
+
+@{
+    // Set page title based on controller-provided action ("Add" or "Edit")
+    string title = ViewBag.Action + " Customer";
+    ViewData["Title"] = title;
+}
+
+<div class="mx-auto" style="max-width: 900px;">
+    <h2 class="mt-3 mb-3">@ViewBag.Title</h2>
+
+    <div class="card-box shadow-sm p-3 mx-auto" style="max-width: 900px;">
+        <form asp-action="Save" method="post">
+
+            <!-- Displays validation errors from model binding -->
+            @* <div asp-validation-summary="All" class="text-danger"></div> *@
+
+            <!-- Customer Full Name -->
+            <div class="row mb-2">
+                <label asp-for="Cust_Name" class="col-md-3 col-form-label">Full Name</label>
+                <div class="col-md-7">
+                    <input asp-for="Cust_Name" class="form-control" />           
+                    <span asp-validation-for="Cust_Name" class="text-danger"></span>
+                </div>
+            </div>   
+
+            <!-- Billing Address -->
+            <div class="row mb-2">
+                <label asp-for="Cust_Billing_Address" class="col-md-3 col-form-label">Billing Address</label>
+                <div class="col-md-7">
+                    <input asp-for="Cust_Billing_Address" class="form-control" />
+                    <span asp-validation-for="Cust_Billing_Address" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Billing City -->
+            <div class="row mb-2">
+                <label asp-for="Cust_Billing_City" class="col-md-3 col-form-label">Billing City</label>
+                <div class="col-md-7">
+                    <input asp-for="Cust_Billing_City" class="form-control" />
+                    <span asp-validation-for="Cust_Billing_City" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Billing State -->
+            <div class="row mb-2">
+                <label asp-for="Cust_Billing_State" class="col-md-3 col-form-label">Billing State</label>
+                <div class="col-md-7">
+                    <select asp-for="Cust_Billing_State" asp-items="ViewBag.States" class="form-select">
+                        <option value="">Select a state...</option>
+                    </select>
+                    <span asp-validation-for="Cust_Billing_State" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Billing ZIP Code -->
+            <div class="row mb-2">
+                <label asp-for="Cust_Billing_Zip" class="col-md-3 col-form-label">Billing ZIP Code</label>
+                <div class="col-md-7">
+                    <input asp-for="Cust_Billing_Zip" class="form-control" />
+                    <span asp-validation-for="Cust_Billing_Zip" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Phone Number -->
+            <div class="row mb-2">
+                <label asp-for="Cust_Phone" class="col-md-3 col-form-label">Phone</label>
+                <div class="col-md-7">
+                    <input asp-for="Cust_Phone" class="form-control" />
+                    <span asp-validation-for="Cust_Phone" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Email Address -->
+            <div class="row mb-2">
+                <label asp-for="Cust_Email" class="col-md-3 col-form-label">Email</label>
+                <div class="col-md-7">
+                    <input asp-for="Cust_Email" class="form-control" />
+                    <span asp-validation-for="Cust_Email" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Hidden key used to detect Edit vs Add -->
+            <input type="hidden" asp-for="Cust_ID" />
+
+            <!-- Form actions -->
+            <div class="mt-3">
+                <button type="submit" class="btn btn-green">Save</button>
+                <a asp-action="List" class="btn btn-outline-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- jQuery libraries for validation -->
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>

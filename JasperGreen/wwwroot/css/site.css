@@ -1,0 +1,1612 @@
+/* =========================================================
+   MASTER COLOR REFERENCE (DO NOT USE DIRECTLY)
+   ---------------------------------------------------------
+   This is a visual guide to all colors used in this file.
+   Update here first, then manually update usages below.
+   ========================================================= */
+
+/*
+PRIMARY THEME
+#4CAF50  - Main green (buttons, accents, active states)
+#43a047  - Darker green (hover states)
+
+BACKGROUND / HOVER
+#eef7ee  - Light green hover background (tables, lists, dropdowns)
+
+BORDERS / DIVIDERS
+#e5e5e5  - Light gray borders (cards, tables)
+
+TEXT
+#6c757d  - Muted gray text (table headers, secondary text)
+
+VALIDATION / ERRORS
+#dc3545  - Red (input errors, validation states)
+
+SHADOWS (RGBA)
+rgba(76, 175, 80, 0.2)   - Green focus glow
+rgba(220, 53, 69, 0.25)  - Red error glow
+*/
+
+/* =========================================================
+   NAVBAR STYLING
+   ========================================================= */
+
+/* Active tab: adds green underline to show current page */
+.navbar .nav-link.active {    
+    border-bottom: 3px solid #4CAF50;
+}
+
+/* Base nav link styling */
+.navbar .nav-link {
+    font-size: 1.1rem;
+    /* Creates spacing between nav items (keeps them centered in their "click area") */
+    margin-left: 10px;
+    margin-right: 10px;
+
+    /* Smooth hover/focus transition instead of instant change */
+    transition: all 0.2s ease;
+}
+
+/* =========================================================
+   TYPOGRAPHY (OPTIONAL OVERRIDES - CURRENTLY UNUSED)
+   ========================================================= */
+
+/* Page titles (Bootstrap display-4) */
+/*.display-4 {
+    color: #1F3D2B;
+}*/
+
+/* Card titles */
+/*.card-body .h5 {
+    color: #1F3D2B;
+}*/
+
+/* =========================================================
+   CARD COMPONENTS
+   ========================================================= */
+
+/* Adds a subtle green accent line to the top of cards */
+.card-box {
+    border-top: 2px solid #4CAF50;
+}
+
+/* Refines Bootstrap card/table appearance */
+.card-table {
+    border: 1px solid #e5e5e5;
+
+    /* removes default shadow for flatter design */
+    box-shadow: none;
+
+    /* soft rounded edges */
+    border-radius: 6px;
+}
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+/* Custom green button (overrides Bootstrap default colors) */
+.btn-green {
+    background-color: #4CAF50;
+    color: white;
+}
+
+/* Slightly darker green on hover for feedback */
+.btn-green:hover {
+    background-color: #43a047;
+}
+
+/* =========================================================
+   TEXT HANDLING / UTILITIES
+   ========================================================= */
+
+/* Truncates long text with ellipsis (...) */
+.truncate {
+    /* controls when truncation happens */
+    max-width: 220px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* =========================================================
+   TABLE STYLING
+   ========================================================= */
+
+/* Removes extra spacing below tables */
+.table {
+    margin-bottom: 0;
+}
+
+/* Table header styling */
+.table thead th {
+    /* enforces custom green divider */
+    border-bottom: 2px solid #4CAF50 !important;
+
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #6c757d;
+}
+
+ /* Smooth hover transition for rows */
+.table tbody tr {
+    transition: background-color 0.15s ease;
+}
+
+/* Custom row hover color (overrides Bootstrap default) */
+.table.table-hover tbody tr:hover {
+    background-color: #eef7ee;
+}
+
+.active-sort {
+    color: #4CAF50;
+}
+
+/* =========================================================
+   LIST GROUPS
+   ========================================================= */
+
+/* Hover effect to match table styling */
+.list-group-item:hover {
+    background-color: #eef7ee;
+}
+
+/* Adjust spacing inside list items */
+.list-group-item {
+    padding: 12px 16px;
+}
+
+/* =========================================================
+   FORMS
+   ========================================================= */
+
+/* Slight emphasis on labels */
+.col-form-label {
+    font-weight: 500;
+}
+
+/* Green focus state for inputs (matches theme) */
+.form-control:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 0 0.1rem rgba(76, 175, 80, 0.2);
+}
+
+/* =========================================================
+   TABLE ACTION LINKS
+   ========================================================= */
+
+/* Adds clickable spacing around action icons/links */
+.table-actions td a {
+    padding: 8px;
+}
+
+/* =========================================================
+   DROPDOWNS
+   ========================================================= */
+
+/* Consistent hover color with tables/lists */
+.dropdown-item:hover {
+    background-color: #eef7ee;
+}
+
+/* =========================================================
+   VALIDATION (ERROR STATES)
+   ========================================================= */
+
+/* Red border for invalid inputs (overrides Bootstrap) */
+.input-validation-error {
+    border-color: #dc3545 !important;
+}
+
+ /* Red glow on focus for invalid inputs */
+.input-validation-error:focus {
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+
+
+
+
+/* NEED TO SORT THE FOLLOWING:*/
+
+/*Hovering of Platform Status on Home Page*/
+.card a {
+    transition: color 0.2s ease;
+}
+
+.card a:hover h2,
+.card a:hover p {
+    color: #4CAF50 !important;
+}
+
+.platform-status-card a {
+    display: inline-block;
+    transition: color 0.2s ease;
+}
+
+.platform-status-card a:hover h2,
+.platform-status-card a:hover p {
+    color: #4CAF50 !important;
+}
+
+/* CSS for Filter Arrow Icons */
+.sort-header {
+    white-space: nowrap;
+    font-weight: 600;
+    color: #212529;
+}
+
+    .sort-header span {
+        vertical-align: middle;
+    }
+
+.sort-icon {
+    margin-left: 6px;
+    text-decoration: none;
+    color: #6c757d;
+    font-size: 0.85rem;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+    .sort-icon:hover {
+        color: #0d6efd;
+    }
+
+.sort-neutral {
+    opacity: 0.4;
+}
+
+/* filter pill*/
+.filter-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    padding: 2px 8px;
+    border: 1px solid #e5e5e5;
+    border-radius: 999px;
+    background-color: white;
+    color: #6c757d;
+    font-size: 0.72rem;
+    line-height: 1;
+    text-decoration: none;
+    transition: background-color 0.15s ease;
+}
+
+.filter-tag:hover {
+    background-color: #eef7ee;
+    color: #6c757d;
+}
+
+
+/* =========================================================
+   PUBLIC WEBSITE
+   ========================================================= */
+
+.public-body {
+    color: #21332a;
+    background-color: #ffffff;
+}
+
+.public-site-header {
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+}
+
+.public-navbar {
+    min-height: 78px;
+    border-bottom: 1px solid rgba(31, 53, 40, 0.08);
+    background-color: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(12px);
+    transition: min-height 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.public-navbar.is-scrolled {
+    min-height: 62px;
+    border-color: rgba(31, 53, 40, 0.12);
+    box-shadow: 0 10px 28px rgba(20, 42, 29, 0.12);
+}
+
+.public-logo {
+    height: 46px;
+    transition: height 0.25s ease, transform 0.25s ease;
+}
+
+.public-navbar.is-scrolled .public-logo {
+    height: 36px;
+}
+
+.public-nav-link {
+    position: relative;
+    padding: 0.65rem 0.2rem !important;
+    font-weight: 600;
+    color: #263d30 !important;
+}
+
+.navbar .public-nav-link.active {
+    border-bottom: 0;
+}
+
+.public-nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0.2rem;
+    right: 0.2rem;
+    bottom: 0.2rem;
+    height: 3px;
+    border-radius: 999px;
+    background-color: #4CAF50;
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.2s ease;
+}
+
+.public-nav-link:hover::after,
+.public-nav-link.active::after {
+    transform: scaleX(1);
+}
+
+.public-nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+}
+
+.public-body .btn {
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.public-hero {
+    position: relative;
+    min-height: 660px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.public-hero-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.public-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 18% 30%, rgba(76, 175, 80, 0.24), transparent 30%),
+        linear-gradient(90deg, rgba(11, 31, 20, 0.9), rgba(11, 31, 20, 0.56), rgba(11, 31, 20, 0.16));
+}
+
+.public-hero-content {
+    position: relative;
+    color: #ffffff;
+    padding-top: 96px;
+    padding-bottom: 112px;
+}
+
+.public-hero h1 {
+    font-size: clamp(3.2rem, 8vw, 6.8rem);
+    line-height: 0.95;
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+}
+
+.public-hero-copy {
+    max-width: 720px;
+    font-size: 1.25rem;
+    line-height: 1.7;
+    margin-bottom: 1.75rem;
+}
+
+.public-eyebrow {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+}
+
+.public-hero-actions,
+.public-cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+    align-items: center;
+}
+
+.public-hero-support {
+    margin: 1rem 0 1.25rem;
+    color: #dbe9dd;
+    font-weight: 600;
+}
+
+.public-hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.public-hero-badges span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-height: 42px;
+    padding: 0.55rem 0.85rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 999px;
+    color: #f8fff8;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.public-premium-btn,
+.public-ghost-btn {
+    box-shadow: 0 14px 30px rgba(12, 31, 20, 0.18);
+}
+
+.public-premium-btn:hover,
+.public-ghost-btn:hover,
+.public-contact-band .btn:hover,
+.btn-green:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 34px rgba(20, 42, 29, 0.18);
+}
+
+.public-section {
+    padding: 5rem 0;
+}
+
+.public-section-soft {
+    background: linear-gradient(180deg, #f7faf5, #eef6ee);
+}
+
+.public-section-title {
+    font-size: clamp(2rem, 4vw, 3.1rem);
+    line-height: 1.08;
+    font-weight: 700;
+    color: #1f3528;
+}
+
+.public-section-heading {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    align-items: end;
+    margin-bottom: 2rem;
+}
+
+.public-narrow-heading {
+    max-width: 760px;
+    margin-bottom: 1.5rem;
+}
+
+.public-large-copy {
+    font-size: 1.12rem;
+    line-height: 1.85;
+    color: #4f5c55;
+    margin-bottom: 0;
+}
+
+.public-service-card,
+.public-value-card,
+.public-stat,
+.public-contact-panel,
+.public-contact-form,
+.public-check-card {
+    border: 1px solid #dfe7dd;
+    border-radius: 8px;
+    background-color: #ffffff;
+}
+
+.public-service-card,
+.public-value-card {
+    height: 100%;
+    padding: 1.5rem;
+    box-shadow: 0 12px 28px rgba(20, 42, 29, 0.08);
+    transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+}
+
+.public-service-card:hover,
+.public-value-card:hover {
+    border-color: rgba(76, 175, 80, 0.55);
+    transform: translateY(-6px);
+    box-shadow: 0 22px 46px rgba(20, 42, 29, 0.15);
+}
+
+.public-service-card i,
+.public-value-card i {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 54px;
+    height: 54px;
+    border-radius: 8px;
+    background-color: #eef7ee;
+    font-size: 2rem;
+    color: #4CAF50;
+    transition: transform 0.22s ease, color 0.22s ease, background-color 0.22s ease;
+}
+
+.public-service-card:hover i,
+.public-value-card:hover i {
+    color: #ffffff;
+    background-color: #4CAF50;
+    transform: translateY(-2px) rotate(-3deg);
+}
+
+.public-service-card h3,
+.public-value-card h3,
+.public-stat h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 1rem 0 0.5rem;
+}
+
+.public-service-card p,
+.public-value-card p,
+.public-stat p {
+    color: #5c6a62;
+    margin-bottom: 0;
+}
+
+.public-stat {
+    height: 100%;
+    padding: 1.5rem;
+    box-shadow: 0 10px 24px rgba(20, 42, 29, 0.06);
+}
+
+.public-stat span {
+    display: inline-flex;
+    width: 42px;
+    height: 42px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: #eef7ee;
+    color: #2f7d32;
+    font-weight: 700;
+}
+
+.public-contact-band {
+    position: relative;
+    overflow: hidden;
+    padding: 4.5rem 0;
+    color: #ffffff;
+    background:
+        linear-gradient(135deg, rgba(20, 49, 34, 0.96), rgba(37, 68, 54, 0.9)),
+        url("../images/landscaping-hero.png");
+    background-size: cover;
+    background-position: center;
+}
+
+.public-contact-band::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(76, 175, 80, 0.18), transparent 54%);
+    pointer-events: none;
+}
+
+.public-contact-band .container {
+    position: relative;
+}
+
+.public-contact-band h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.12;
+    margin-bottom: 0.8rem;
+}
+
+.public-cta-copy {
+    max-width: 740px;
+    margin-bottom: 0;
+    color: #dce9df;
+    font-size: 1.05rem;
+    line-height: 1.75;
+}
+
+.public-cta-actions {
+    justify-content: flex-end;
+}
+
+.public-page-header {
+    padding: 6rem 0 3.5rem;
+    background:
+        linear-gradient(135deg, rgba(245, 248, 243, 0.98), rgba(238, 247, 238, 0.92)),
+        url("../images/landscaping-hero.png");
+    background-size: cover;
+    background-position: center;
+}
+
+.public-page-header h1 {
+    max-width: 850px;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    line-height: 1;
+    font-weight: 700;
+    color: #1f3528;
+}
+
+.public-page-header p:last-child {
+    max-width: 820px;
+    font-size: 1.18rem;
+    line-height: 1.75;
+    color: #55635b;
+}
+
+.public-highlight-list {
+    display: grid;
+    gap: 1rem;
+}
+
+.public-highlight-list div {
+    display: flex;
+    gap: 0.85rem;
+    align-items: flex-start;
+    padding: 1rem;
+    border-radius: 8px;
+    background-color: #f5f8f3;
+    color: #2a3c31;
+    font-weight: 600;
+}
+
+.public-highlight-list i {
+    color: #4CAF50;
+    font-size: 1.35rem;
+}
+
+.public-contact-panel,
+.public-contact-form {
+    height: 100%;
+    padding: 2rem;
+    box-shadow: 0 12px 28px rgba(20, 42, 29, 0.08);
+}
+
+.public-contact-panel h2,
+.public-contact-form h2 {
+    font-weight: 700;
+    color: #1f3528;
+}
+
+.public-contact-item {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    padding-top: 1.25rem;
+    margin-top: 1.25rem;
+    border-top: 1px solid #dfe7dd;
+}
+
+.public-contact-item i {
+    color: #4CAF50;
+    font-size: 1.25rem;
+}
+
+.public-contact-item strong,
+.public-contact-item span {
+    display: block;
+}
+
+.public-contact-item span {
+    color: #58665e;
+}
+
+.public-service-area-note {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border-radius: 8px;
+    color: #234131;
+    background-color: #eef7ee;
+}
+
+.public-service-area-note strong,
+.public-service-area-note span {
+    display: block;
+}
+
+.public-service-area-note span {
+    margin-top: 0.25rem;
+    color: #56665d;
+    line-height: 1.55;
+}
+
+.public-form-heading {
+    margin-bottom: 1.5rem;
+}
+
+.public-form-heading p:last-child,
+.public-form-note {
+    color: #5c6a62;
+}
+
+.public-form-note {
+    margin: 0.85rem 0 0;
+    font-size: 0.92rem;
+}
+
+.public-contact-form .form-label {
+    color: #2a3c31;
+    font-weight: 700;
+}
+
+.public-contact-form .form-control,
+.public-contact-form .form-select {
+    border-color: #d6e1d3;
+    border-radius: 8px;
+}
+
+.public-contact-form .form-select:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 0 0.1rem rgba(76, 175, 80, 0.2);
+}
+
+.public-check-card {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-height: 72px;
+    padding: 1rem;
+    font-weight: 600;
+}
+
+.public-check-card i {
+    color: #4CAF50;
+    font-size: 1.35rem;
+}
+
+.public-work-section {
+    background-color: #ffffff;
+}
+
+.public-carousel-controls {
+    display: flex;
+    gap: 0.6rem;
+}
+
+.public-carousel-controls button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid #cfe0ca;
+    border-radius: 50%;
+    color: #2f7d32;
+    background-color: #ffffff;
+    transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.public-carousel-controls button:hover {
+    border-color: #4CAF50;
+    background-color: #eef7ee;
+    transform: translateY(-2px);
+}
+
+.public-work-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(240px, 1fr));
+    gap: 1rem;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+    scroll-snap-type: x proximity;
+}
+
+.public-work-card {
+    position: relative;
+    display: flex;
+    align-items: end;
+    min-height: 360px;
+    overflow: hidden;
+    border-radius: 8px;
+    background-image:
+        linear-gradient(180deg, rgba(11, 31, 20, 0.05), rgba(11, 31, 20, 0.82)),
+        url("../images/landscaping-hero.png");
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 16px 34px rgba(20, 42, 29, 0.12);
+    scroll-snap-align: start;
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.public-work-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 22px 46px rgba(20, 42, 29, 0.18);
+}
+
+.public-work-card div {
+    position: relative;
+    padding: 1.25rem;
+    color: #ffffff;
+}
+
+.public-work-card span {
+    display: inline-flex;
+    margin-bottom: 0.55rem;
+    color: #ddf2df;
+    font-size: 0.78rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.public-work-card h3 {
+    font-size: 1.25rem;
+    line-height: 1.25;
+    font-weight: 700;
+    margin-bottom: 0;
+}
+
+.public-work-lawn {
+    background-position: 18% center;
+}
+
+.public-work-beds {
+    background-position: 42% center;
+}
+
+.public-work-commercial {
+    background-position: 68% center;
+}
+
+.public-work-seasonal {
+    background-position: 88% center;
+}
+
+.public-testimonial-card {
+    position: relative;
+    height: 100%;
+    margin: 0;
+    padding: 1.5rem;
+    border: 1px solid #dfe7dd;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 12px 28px rgba(20, 42, 29, 0.08);
+}
+
+.public-testimonial-card::before {
+    content: "\201C";
+    display: block;
+    color: #4CAF50;
+    font-size: 3.5rem;
+    line-height: 0.8;
+    font-weight: 800;
+}
+
+.public-testimonial-card blockquote {
+    margin: 0 0 1.25rem;
+    color: #2c3e33;
+    font-size: 1.02rem;
+    line-height: 1.7;
+}
+
+.public-testimonial-card strong,
+.public-testimonial-card span {
+    display: block;
+}
+
+.public-testimonial-card span {
+    color: #607069;
+    font-size: 0.92rem;
+}
+
+.public-process-list {
+    display: grid;
+    gap: 1rem;
+}
+
+.public-process-list > div {
+    display: grid;
+    grid-template-columns: 54px 1fr;
+    gap: 1rem;
+    padding: 1.25rem;
+    border: 1px solid #dfe7dd;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 10px 24px rgba(20, 42, 29, 0.06);
+}
+
+.public-process-list span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 54px;
+    height: 54px;
+    border-radius: 8px;
+    color: #2f7d32;
+    background-color: #eef7ee;
+    font-weight: 800;
+}
+
+.public-process-list h3 {
+    color: #1f3528;
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+}
+
+.public-process-list p {
+    color: #5c6a62;
+    line-height: 1.65;
+    margin-bottom: 0;
+}
+
+.public-footer-section {
+    padding: 4rem 0 1.25rem;
+    color: #d8e5db;
+    border-top: 5px solid #4CAF50;
+    background:
+        linear-gradient(180deg, #17261e, #101b15);
+}
+
+.public-footer-logo {
+    height: 42px;
+    filter: brightness(1.05);
+}
+
+.public-footer-section h2 {
+    margin-bottom: 0.85rem;
+    color: #ffffff;
+    font-size: 0.82rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.public-footer-section p,
+.public-footer-links {
+    color: #bdcabe;
+    line-height: 1.65;
+}
+
+.public-footer-blurb {
+    max-width: 390px;
+}
+
+.public-footer-links {
+    display: grid;
+    gap: 0.45rem;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+
+.public-footer-links a {
+    color: #d8e5db;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.public-footer-links a:hover {
+    color: #ffffff;
+}
+
+.public-footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    font-size: 0.9rem;
+    color: #aebcaf;
+}
+
+.reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+.reveal-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* =========================================================
+   ADMIN DASHBOARD
+   ========================================================= */
+
+.admin-dashboard {
+    padding-bottom: 2rem;
+}
+
+.admin-user-menu {
+    display: inline-flex;
+    align-items: center;
+    font-weight: 600;
+}
+
+.dropdown-menu .dropdown-item {
+    font-size: 0.95rem;
+}
+
+.dropdown-menu .dropdown-item:active {
+    background-color: #4CAF50;
+}
+
+.admin-login-page {
+    display: flex;
+    justify-content: center;
+    padding: 3rem 0 4rem;
+}
+
+.admin-login-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 420px;
+    width: min(100%, 980px);
+    overflow: hidden;
+    border: 1px solid #dfe7dd;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 16px 34px rgba(20, 42, 29, 0.1);
+}
+
+.admin-login-intro {
+    padding: 2.5rem;
+    color: #ffffff;
+    background:
+        linear-gradient(135deg, rgba(31, 53, 40, 0.94), rgba(47, 125, 50, 0.82)),
+        url("../images/landscaping-hero.png");
+    background-size: cover;
+    background-position: center;
+}
+
+.admin-login-intro .admin-label {
+    color: #dff0df;
+}
+
+.admin-login-intro h1 {
+    max-width: 460px;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    line-height: 1.05;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.admin-login-intro p:not(.admin-label) {
+    max-width: 480px;
+    line-height: 1.7;
+    margin-bottom: 0;
+}
+
+.admin-login-form {
+    padding: 2.5rem;
+}
+
+.admin-login-form .input-group-text {
+    color: #4CAF50;
+    background-color: #f5f8f3;
+    border-color: #ced4da;
+}
+
+.admin-settings-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    align-items: center;
+    padding: 2rem;
+    border: 1px solid #dfe7dd;
+    border-radius: 8px;
+    background-color: #f8faf7;
+}
+
+.admin-settings-header h1 {
+    color: #1f3528;
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    line-height: 1;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+}
+
+.admin-settings-header p:not(.admin-label) {
+    max-width: 720px;
+    color: #59665e;
+    line-height: 1.65;
+    margin-bottom: 0;
+}
+
+.admin-settings-links {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.admin-settings-links a {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-height: 48px;
+    padding: 0.75rem 1rem;
+    border: 1px solid #dfe7dd;
+    border-radius: 8px;
+    color: #24372c;
+    background-color: #fbfdfb;
+    font-weight: 600;
+    text-decoration: none;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.admin-settings-links a:hover {
+    border-color: #4CAF50;
+    background-color: #f4fbf4;
+}
+
+.admin-settings-links i {
+    color: #4CAF50;
+    font-size: 1.2rem;
+}
+
+.admin-command {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 1.5rem;
+    align-items: stretch;
+    padding: 2rem;
+    border: 1px solid #dfe7dd;
+    border-radius: 8px;
+    background:
+        linear-gradient(135deg, rgba(245, 248, 243, 0.98), rgba(255, 255, 255, 0.94)),
+        url("../images/landscaping-hero.png");
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 16px 34px rgba(20, 42, 29, 0.08);
+}
+
+.admin-command-copy h1 {
+    max-width: 720px;
+    color: #1f3528;
+    font-size: clamp(2.25rem, 5vw, 4rem);
+    line-height: 1;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.admin-command-copy p:not(.admin-label) {
+    max-width: 680px;
+    color: #59665e;
+    font-size: 1.05rem;
+    line-height: 1.65;
+}
+
+.admin-label {
+    margin-bottom: 0.45rem;
+    color: #2f7d32;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0;
+    text-transform: uppercase;
+}
+
+.admin-command-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 210px;
+    padding: 1.5rem;
+    border: 1px solid #dfe7dd;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.admin-command-panel span {
+    color: #6c757d;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+
+.admin-command-panel strong {
+    color: #1f3528;
+    font-size: 2.45rem;
+    line-height: 1.1;
+}
+
+.admin-metric {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.25rem 0.85rem;
+    height: 100%;
+    padding: 1.25rem;
+    border: 1px solid #dfe7dd;
+    border-radius: 8px;
+    color: #24372c;
+    background-color: #ffffff;
+    text-decoration: none;
+    box-shadow: 0 8px 20px rgba(20, 42, 29, 0.06);
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.admin-metric:hover {
+    color: #24372c;
+    border-color: #4CAF50;
+    transform: translateY(-2px);
+    box-shadow: 0 14px 28px rgba(20, 42, 29, 0.12);
+}
+
+.admin-metric i {
+    grid-row: span 2;
+    align-self: center;
+    color: #4CAF50;
+    font-size: 1.8rem;
+}
+
+.admin-metric span {
+    color: #6c757d;
+    font-size: 0.86rem;
+    text-transform: uppercase;
+}
+
+.admin-metric strong {
+    color: #1f3528;
+    font-size: 2rem;
+    line-height: 1;
+}
+
+.admin-panel {
+    padding: 1.5rem;
+    border: 1px solid #dfe7dd;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 8px 20px rgba(20, 42, 29, 0.06);
+}
+
+.admin-panel-heading {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: start;
+    margin-bottom: 1rem;
+}
+
+.admin-panel-heading h2 {
+    color: #1f3528;
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin-bottom: 0;
+}
+
+.admin-pill {
+    display: inline-flex;
+    align-items: center;
+    min-height: 32px;
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    color: #2f7d32;
+    background-color: #eef7ee;
+    font-size: 0.8rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.admin-workflow-card {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    gap: 0.25rem 1rem;
+    height: 100%;
+    min-height: 126px;
+    padding: 1rem;
+    border: 1px solid #dfe7dd;
+    border-radius: 8px;
+    color: #24372c;
+    background-color: #fbfdfb;
+    text-decoration: none;
+    transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.admin-workflow-card:hover {
+    color: #24372c;
+    border-color: #4CAF50;
+    background-color: #f4fbf4;
+    transform: translateY(-2px);
+}
+
+.admin-workflow-card i {
+    grid-row: span 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    color: #ffffff;
+    background-color: #4CAF50;
+    font-size: 1.35rem;
+}
+
+.admin-workflow-card span {
+    align-self: end;
+    font-weight: 700;
+}
+
+.admin-workflow-card small {
+    color: #6c757d;
+    line-height: 1.45;
+}
+
+.admin-activity-list {
+    display: grid;
+    gap: 0.9rem;
+}
+
+.admin-activity-item {
+    display: grid;
+    grid-template-columns: 62px 1fr;
+    gap: 0.9rem;
+    align-items: start;
+    padding: 0.85rem;
+    border: 1px solid #dfe7dd;
+    border-radius: 8px;
+    background-color: #fbfdfb;
+}
+
+.admin-activity-date {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    border-radius: 8px;
+    color: #2f7d32;
+    background-color: #eef7ee;
+    font-size: 0.78rem;
+    font-weight: 800;
+    text-align: center;
+}
+
+.admin-activity-item strong,
+.admin-activity-item span {
+    display: block;
+}
+
+.admin-activity-item span {
+    color: #6c757d;
+    line-height: 1.45;
+}
+
+.admin-hero {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    align-items: center;
+    padding: 2rem;
+    border: 1px solid #dfe7dd;
+    border-radius: 8px;
+    background-color: #f8faf7;
+}
+
+.admin-kpi {
+    height: 100%;
+    padding: 1.25rem;
+    border: 1px solid #dfe7dd;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 8px 20px rgba(20, 42, 29, 0.06);
+}
+
+.admin-kpi span {
+    display: block;
+    color: #6c757d;
+    font-size: 0.88rem;
+    text-transform: uppercase;
+}
+
+.admin-kpi strong {
+    display: block;
+    font-size: 2rem;
+    line-height: 1.1;
+    color: #1f3528;
+}
+
+.admin-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 190px;
+    padding: 1.5rem;
+    border: 1px solid #dfe7dd;
+    border-radius: 8px;
+    color: #24372c;
+    background-color: #ffffff;
+    text-decoration: none;
+    box-shadow: 0 8px 20px rgba(20, 42, 29, 0.06);
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.admin-card:hover {
+    color: #24372c;
+    border-color: #4CAF50;
+    transform: translateY(-2px);
+    box-shadow: 0 14px 28px rgba(20, 42, 29, 0.12);
+}
+
+.admin-card i {
+    font-size: 2rem;
+    color: #4CAF50;
+    margin-bottom: 1rem;
+}
+
+.admin-card span {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.admin-card small {
+    color: #6c757d;
+    line-height: 1.5;
+}
+
+@media (max-width: 767.98px) {
+    .public-navbar,
+    .public-navbar.is-scrolled {
+        min-height: 64px;
+    }
+
+    .public-logo,
+    .public-navbar.is-scrolled .public-logo {
+        height: 36px;
+    }
+
+    .public-navbar .navbar-collapse {
+        padding: 1rem 0;
+    }
+
+    .public-nav-actions {
+        align-items: stretch;
+        flex-direction: column;
+        margin-top: 0.75rem;
+    }
+
+    .public-nav-actions .btn,
+    .public-nav-actions form,
+    .public-nav-actions button {
+        width: 100%;
+    }
+
+    .public-hero {
+        min-height: 690px;
+    }
+
+    .public-hero-overlay {
+        background: rgba(11, 31, 20, 0.78);
+    }
+
+    .public-hero-content {
+        padding-top: 70px;
+        padding-bottom: 70px;
+    }
+
+    .public-hero h1 {
+        font-size: clamp(3rem, 18vw, 4.8rem);
+    }
+
+    .public-hero-copy {
+        font-size: 1.08rem;
+    }
+
+    .public-hero-actions,
+    .public-cta-actions {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .public-hero-actions .btn,
+    .public-cta-actions .btn {
+        width: 100%;
+    }
+
+    .public-hero-badges {
+        flex-direction: column;
+    }
+
+    .public-hero-badges span {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .public-section {
+        padding: 3.5rem 0;
+    }
+
+    .public-section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .public-work-grid {
+        grid-template-columns: repeat(4, minmax(250px, 82vw));
+    }
+
+    .public-work-card {
+        min-height: 310px;
+    }
+
+    .public-contact-band {
+        padding: 3.5rem 0;
+    }
+
+    .public-cta-actions {
+        justify-content: flex-start;
+    }
+
+    .public-page-header {
+        padding: 4rem 0 2.75rem;
+    }
+
+    .public-process-list > div {
+        grid-template-columns: 1fr;
+    }
+
+    .public-footer-bottom {
+        flex-direction: column;
+    }
+
+    .admin-hero {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 1.5rem;
+    }
+
+    .admin-command {
+        grid-template-columns: 1fr;
+        padding: 1.5rem;
+    }
+
+    .admin-panel-heading {
+        flex-direction: column;
+    }
+
+    .admin-login-card {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-login-intro,
+    .admin-login-form {
+        padding: 1.5rem;
+    }
+
+    .admin-settings-header {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 1.5rem;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .public-navbar .navbar-collapse {
+        padding: 1rem 0;
+    }
+
+    .public-nav-actions {
+        align-items: stretch;
+        flex-direction: column;
+        max-width: 320px;
+        margin-top: 0.75rem;
+    }
+
+    .public-work-grid {
+        grid-template-columns: repeat(4, minmax(280px, 1fr));
+    }
+
+    .public-cta-actions {
+        justify-content: flex-start;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+
+    .reveal-on-scroll {
+        opacity: 1;
+        transform: none;
+    }
+}

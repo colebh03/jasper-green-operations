@@ -1,0 +1,84 @@
+﻿@*
+============================================================================
+AUTHOR:       Cole Howell
+COURSE:       ISTM 415
+PROGRAM:      GetCustomer.cshtml
+
+PURPOSE:      Displays a selection form for filtering service events by Customer.
+              Allows the user to choose a customer before applying the filter.
+
+INPUT:        - CustomerFilterViewModel containing list of Customers
+              - User selection of Cust_ID from dropdown
+
+PROCESS:      - Renders dropdown populated with available customers
+              - Validates that a customer is selected
+              - Submits selected Cust_ID to controller for filtering
+
+OUTPUT:       - Rendered form for customer selection
+              - Redirect to filtered service list based on selected customer
+
+HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
+              unauthorized aid on this academic work.
+============================================================================
+*@
+
+@model DateFilterViewModel
+
+@{
+    ViewData["Title"] = "Select Date Range";
+}
+
+<div class="mx-auto" style="max-width: 900px;">
+    <h2 class="mt-3 mb-3">Select Date Range</h2>
+
+    <div class="card-box shadow-sm p-3 mx-auto" style="max-width: 900px;">
+        <form asp-action="GetDate" method="post">
+
+            <!-- Start Date -->
+            <div class="row mb-2">
+                <label asp-for="StartDate"
+                       class="col-md-3 col-form-label">
+
+                    Start Date
+                </label>
+
+                <div class="col-md-7">
+
+                    <input asp-for="StartDate"
+                           type="date"
+                           class="form-control" />
+
+                    <span asp-validation-for="StartDate"
+                          class="text-danger"></span>
+
+                </div>
+            </div>
+
+            <!-- End Date -->
+            <div class="row mb-2">
+                <label asp-for="EndDate"
+                       class="col-md-3 col-form-label">
+
+                    End Date
+                </label>
+
+                <div class="col-md-7">
+
+                    <input asp-for="EndDate"
+                           type="date"
+                           class="form-control" />
+
+                    <span asp-validation-for="EndDate"
+                          class="text-danger"></span>
+
+                </div>
+            </div>
+
+            <div class="mt-3">
+                <button type="submit" class="btn btn-green">Select</button>
+                <a asp-action="List" class="btn btn-outline-secondary">Cancel</a>
+            </div>
+
+        </form>
+    </div>
+</div>
