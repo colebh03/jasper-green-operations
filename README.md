@@ -115,7 +115,21 @@ No private API keys or administrator passwords are included in this repository.
 
 The PDF invoice integration requires a valid PdfMyHtml API key. The remaining application features can run without that integration.
 
+## Skills Demonstrated
+- Full-stack application development
+- C# and ASP.NET Core MVC
+- Relational database design
+- SQL Server and Entity Framework Core
+- Authentication and role-based access
+- Business-process modeling
+- Data validation and business rules
+- CRUD application development
+- Dashboard and reporting logic
+- User-interface design
+- External API integration
 
+## Author
+Cole Howell
 
 
 
