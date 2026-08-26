@@ -1,13 +1,13 @@
 @model DashboardViewModel
 
 @{
-    ViewData["Title"] = "Admin Dashboard";
+    ViewData["Title"] = "Operations Dashboard";
 }
 
 <div class="admin-dashboard">
     <section class="admin-command mb-4">
         <div class="admin-command-copy">
-            <p class="admin-label">Administrator Portal</p>
+            <p class="admin-label">Operations Portal</p>
             <h1>Jasper Green Operations</h1>
             <p>
                 Keep the business moving with quick access to customers, properties, services, crews, employees, payments, and system users.
@@ -132,7 +132,7 @@
                         <a asp-controller="User" asp-action="Index" class="admin-workflow-card">
                             <i class="bi bi-person-gear"></i>
                             <span>User Management</span>
-                            <small>Manage Identity users and administrator access.</small>
+                            <small>Manage authenticated system users.</small>
                         </a>
                     </div>
                 </div>
