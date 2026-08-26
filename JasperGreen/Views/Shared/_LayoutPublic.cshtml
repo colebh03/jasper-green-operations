@@ -1,8 +1,7 @@
 @{
     string c = ViewContext.RouteData.Values["controller"]?.ToString() ?? "";
     string a = ViewContext.RouteData.Values["action"]?.ToString() ?? "";
-    bool isAuthenticated = User.Identity?.IsAuthenticated ?? false;
-    bool isAdmin = User.IsInRole("Admin");
+    bool isAuthenticated = User.Identity?.IsAuthenticated ?? false;    
 }
 
 <!DOCTYPE html>
@@ -55,7 +54,7 @@
                     </ul>
 
                     <div class="public-nav-actions">
-                        @if (isAuthenticated && isAdmin)
+                        @if (isAuthenticated)
                         {
                             <a asp-controller="Admin" asp-action="Index" class="btn btn-outline-success">Dashboard</a>
                             <form method="post" asp-controller="Account" asp-action="LogOut">

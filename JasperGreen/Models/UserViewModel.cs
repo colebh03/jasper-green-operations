@@ -8,7 +8,6 @@ namespace JasperGreen.Models
 {
     public class UserViewModel
     {
-        public IEnumerable<User> Users { get; set; } = null!; 
-        public IEnumerable<IdentityRole> Roles { get; set; } = null!;
+        public IEnumerable<User> Users { get; set; } = new List<User>();
     }
 }

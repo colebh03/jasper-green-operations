@@ -8,9 +8,5 @@ namespace JasperGreen.Models
 {
     public class User : IdentityUser
     {
-        // Inherits all IdentityUser properties
-        [NotMapped] 
-        public IList<string> RoleNames { get; set; } = null!;
     }
-    
 }

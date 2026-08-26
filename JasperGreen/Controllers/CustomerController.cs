@@ -31,7 +31,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace JasperGreen.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     public class CustomerController : Controller
     {
         // Centralized EF Core DbContext for database interaction.

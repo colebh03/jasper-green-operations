@@ -46,7 +46,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace JasperGreen.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     public class ServiceController : Controller
     {
         private JasperGreenDbContext Context { get; set; }

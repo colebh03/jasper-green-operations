@@ -23,8 +23,7 @@ HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
 @{
     string c = ViewContext.RouteData.Values["controller"]?.ToString() ?? "";
     string a = ViewContext.RouteData.Values["action"]?.ToString() ?? "";
-    bool isAuthenticated = User.Identity?.IsAuthenticated ?? false;
-    bool isAdmin = User.IsInRole("Admin");
+    bool isAuthenticated = User.Identity?.IsAuthenticated ?? false;    
 }
 
 <!DOCTYPE html>
@@ -59,7 +58,7 @@ HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
 
                 <div class="collapse navbar-collapse" id="siteNavbar">
                     <ul class="navbar-nav me-auto">
-                        @if (isAuthenticated && isAdmin)
+                        @if (isAuthenticated)
                         {
                             <li class="nav-item">
                                 <a class="nav-link @(c == "Admin" ? "active" : "")"
@@ -125,7 +124,23 @@ HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="adminUserMenu">
                                     <li>
-                                        <form method="post" asp-controller="Account" asp-action="LogOut">
+                                        <a class="dropdown-item"
+                                           asp-controller="Account"
+                                           asp-action="ChangePassword">
+                                            <i class="bi bi-key-fill me-2"></i>
+                                            Change Password
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <hr class="dropdown-divider" />
+                                    </li>
+
+                                    <li>
+                                        <form method="post"
+                                              asp-controller="Account"
+                                              asp-action="LogOut"
+                                              class="mb-0">
                                             <button type="submit" class="dropdown-item">
                                                 <i class="bi bi-box-arrow-right me-2"></i>
                                                 Logout
@@ -133,18 +148,15 @@ HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
                                         </form>
                                     </li>
                                 </ul>
-                            </li>
-                            @if (isAdmin)
-                            {
-                                <li class="nav-item ms-lg-2">
-                                    <a class="btn @(c == "Admin" && a == "Settings" ? "btn-green" : "btn-outline-success")"
-                                       asp-controller="Admin"
-                                       asp-action="Settings">
-                                        <i class="bi bi-gear-fill me-1"></i>
-                                        Settings
-                                    </a>
-                                </li>
-                            }
+                            </li>                            
+                            <li class="nav-item ms-lg-2">
+                                <a class="btn @(c == "Admin" && a == "Settings" ? "btn-green" : "btn-outline-success")"
+                                    asp-controller="Admin"
+                                    asp-action="Settings">
+                                    <i class="bi bi-gear-fill me-1"></i>
+                                    Settings
+                                </a>
+                            </li>                            
                         }
                     </ul>
                 </div>

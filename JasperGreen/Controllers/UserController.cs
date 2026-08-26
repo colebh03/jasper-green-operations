@@ -1,101 +1,216 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using JasperGreen.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
-using System.Data;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 
 namespace JasperGreen.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     public class UserController : Controller
     {
-        private UserManager<User> userManager; 
+        private UserManager<User> userManager;
 
-        private RoleManager<IdentityRole> roleManager;
-
-        public UserController(UserManager<User> userMngr, RoleManager<IdentityRole> roleMngr)
+        public UserController(UserManager<User> userMngr)
         {
-            userManager = userMngr; 
-            roleManager = roleMngr;
+            userManager = userMngr;
         }
-        public async Task<IActionResult> Index()
+
+        public IActionResult Index()
         {
-            List<User> users = new List<User>(); 
-			foreach (User user in userManager.Users)
+            List<User> users =
+                userManager.Users.ToList();
+
+            UserViewModel model =
+                new UserViewModel
+                {
+                    Users = users
+                };
+
+            return View("List", model);
+        }
+
+        [HttpGet]
+        public IActionResult Add()
+        {
+            ViewBag.Action = "Add";
+
+            UserAddEditViewModel model =
+                new UserAddEditViewModel();
+
+            return View("AddEdit", model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(string id)
+        {
+            User? user =
+                await userManager.FindByIdAsync(id);
+
+            if (user == null)
             {
-                user.RoleNames = await userManager.GetRolesAsync(user); 
-				users.Add(user);
+                return NotFound();
             }
-            UserViewModel model = new UserViewModel
-            {
-                Users = users,
-                Roles = roleManager.Roles
-            }; return View(model);
+
+            UserAddEditViewModel model =
+                new UserAddEditViewModel
+                {
+                    Id = user.Id,
+                    Username = user.UserName ?? ""
+                };
+
+            ViewBag.Action = "Edit";
+
+            return View("AddEdit", model);
         }
 
-		// the other action methods }
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Save(
+    UserAddEditViewModel model)
+        {
+            bool isAdd = string.IsNullOrEmpty(model.Id);
 
-		[HttpPost]
-		public async Task<IActionResult> Delete(string id)
-		{
-			User user = await userManager.FindByIdAsync(id); 
-			if (user != null)
-			{
-				IdentityResult result = await userManager.DeleteAsync(user); 
-				if (!result.Succeeded)
-				{ // if failed
-				    string errorMessage = "";
-					foreach (IdentityError error in result.Errors)
-					{
-						errorMessage += error.Description + " | ";
-					}
-					TempData["message"] = errorMessage;
-				}
-			}
-			return RedirectToAction("Index");
-		}
-		// the Add() methods work like the Register() methods from 16-11 and 16-12
-		
-		[HttpPost]
-		public async Task<IActionResult> AddToAdmin(string id)
-		{
-			IdentityRole adminRole = await roleManager.FindByNameAsync("Admin"); 
-			if (adminRole == null)
-			{
-				TempData["message"] = "Admin role does not exist. " + "Click 'Create Admin Role' button to create it.";
-			}
-			else
-			{
-				User user = await userManager.FindByIdAsync(id); 
-				await userManager.AddToRoleAsync(user, adminRole.Name);
-			}
-			return RedirectToAction("Index");
-		}
+            if (isAdd &&
+                string.IsNullOrWhiteSpace(model.Password))
+            {
+                ModelState.AddModelError(
+                    "Password",
+                    "Please enter a password.");
+            }
 
-		[HttpPost]
-		public async Task<IActionResult> RemoveFromAdmin(string id)
-		{
-			User user = await userManager.FindByIdAsync(id);
-			await userManager.RemoveFromRoleAsync(user, "Admin"); 
-			return RedirectToAction("Index");
-		}
+            if (isAdd &&
+                string.IsNullOrWhiteSpace(model.ConfirmPassword))
+            {
+                ModelState.AddModelError(
+                    "ConfirmPassword",
+                    "Please confirm the password.");
+            }
 
-		[HttpPost]
-		public async Task<IActionResult> DeleteRole(string id)
-		{
-			IdentityRole role = await roleManager.FindByIdAsync(id); 
-			await roleManager.DeleteAsync(role); 
-			return RedirectToAction("Index");
-		}
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Action = isAdd ? "Add" : "Edit";
 
-		[HttpPost]
-		public async Task<IActionResult> CreateAdminRole()
-		{
-			await roleManager.CreateAsync(new IdentityRole("Admin")); 
-			return RedirectToAction("Index");
-		}
+                return View("AddEdit", model);
+            }
 
-	}
+            if (isAdd)
+            {
+                User user = new User
+                {
+                    UserName = model.Username
+                };
+
+                IdentityResult result =
+                    await userManager.CreateAsync(
+                        user,
+                        model.Password);
+
+                if (result.Succeeded)
+                {
+                    TempData["message"] =
+                        model.Username +
+                        " was added successfully.";
+
+                    return RedirectToAction("Index");
+                }
+
+                foreach (IdentityError error in result.Errors)
+                {
+                    ModelState.AddModelError(
+                        "",
+                        error.Description);
+                }
+
+                ViewBag.Action = "Add";
+
+                return View("AddEdit", model);
+            }
+            else
+            {
+                User? user =
+                    await userManager.FindByIdAsync(model.Id!);
+
+                if (user == null)
+                {
+                    return NotFound();
+                }
+
+                IdentityResult result =
+                    await userManager.SetUserNameAsync(
+                        user,
+                        model.Username);
+
+                if (result.Succeeded)
+                {
+                    TempData["message"] =
+                        model.Username +
+                        " was updated successfully.";
+
+                    return RedirectToAction("Index");
+                }
+
+                foreach (IdentityError error in result.Errors)
+                {
+                    ModelState.AddModelError(
+                        "",
+                        error.Description);
+                }
+
+                ViewBag.Action = "Edit";
+
+                return View("AddEdit", model);
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(string id)
+        {
+            string currentUserId =
+                userManager.GetUserId(User) ?? "";
+
+            if (id == currentUserId)
+            {
+                TempData["message"] =
+                    "You cannot delete your own account.";
+
+                return RedirectToAction("Index");
+            }
+
+            User? user =
+                await userManager.FindByIdAsync(id);
+
+            if (user == null)
+            {
+                TempData["message"] =
+                    "The selected user could not be found.";
+
+                return RedirectToAction("Index");
+            }
+
+            IdentityResult result =
+                await userManager.DeleteAsync(user);
+
+            if (result.Succeeded)
+            {
+                TempData["message"] =
+                    user.UserName +
+                    " was deleted successfully.";
+            }
+            else
+            {
+                string errorMessage = "";
+
+                foreach (IdentityError error in result.Errors)
+                {
+                    errorMessage +=
+                        error.Description + " | ";
+                }
+
+                TempData["message"] = errorMessage;
+            }
+
+            return RedirectToAction("Index");
+        }
+    }
 }

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace JasperGreen.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     public class AdminController : Controller
     {
         private readonly JasperGreenDbContext _context;

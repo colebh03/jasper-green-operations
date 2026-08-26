@@ -1,0 +1,155 @@
+﻿@*
+============================================================================
+AUTHOR:       Cole Howell
+COURSE:       ISTM 415
+PROGRAM:      AddEdit.cshtml (User Add/Edit View)
+
+PURPOSE:      Provides a form for creating and editing Jasper Green
+              application user accounts and administrator access.
+
+INPUT:        UserAddEditViewModel containing the user identifier, username,
+              password information, and administrator-role selection.
+
+PROCESS:      Displays fields based on whether the current operation is Add
+              or Edit and submits validated account information to the Save
+              action in the User controller.
+
+OUTPUT:       Creates a new application user or updates an existing user's
+              username and administrator-role assignment.
+
+HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
+              unauthorized aid on this academic work.
+============================================================================
+*@
+
+@model UserAddEditViewModel
+
+@{
+    string title = ViewBag.Action + " User";
+    ViewData["Title"] = title;
+
+    bool isAdd = ViewBag.Action == "Add";
+}
+
+<div class="mx-auto" style="max-width: 900px;">
+    <h2 class="mt-3 mb-3">@title</h2>
+
+    <div class="card-box shadow-sm p-3 mx-auto" style="max-width: 900px;">
+        <form asp-controller="User" asp-action="Save" method="post">
+
+            <div asp-validation-summary="All"
+                 class="text-danger mb-3">
+            </div>
+
+            <!-- Username -->
+            <div class="row mb-2">
+                <label asp-for="Username"
+                       class="col-md-3 col-form-label">
+                    Username
+                </label>
+
+                <div class="col-md-7">
+                    <input asp-for="Username"
+                           class="form-control"
+                           autocomplete="username" />
+
+                    <span asp-validation-for="Username"
+                          class="text-danger">
+                    </span>
+                </div>
+            </div>
+
+            @if (isAdd)
+            {
+                <!-- Password -->
+                <div class="row mb-2">
+                    <label asp-for="Password"
+                           class="col-md-3 col-form-label">
+                        Password
+                    </label>
+
+                    <div class="col-md-7">
+                        <input asp-for="Password"
+                               type="password"
+                               class="form-control"
+                               autocomplete="new-password" />
+
+                        <span asp-validation-for="Password"
+                              class="text-danger">
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="row mb-2">
+                    <label asp-for="ConfirmPassword"
+                           class="col-md-3 col-form-label">
+                        Confirm Password
+                    </label>
+
+                    <div class="col-md-7">
+                        <input asp-for="ConfirmPassword"
+                               type="password"
+                               class="form-control"
+                               autocomplete="new-password" />
+
+                        <span asp-validation-for="ConfirmPassword"
+                              class="text-danger">
+                        </span>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row mb-2">
+                    <div class="col-md-7 offset-md-3">
+                        <div class="alert alert-light border mb-0">
+                            Password changes are handled through the
+                            Change Password page.
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @* <!-- Administrator Role -->
+            <div class="row mb-2">
+                <div class="col-md-7 offset-md-3">
+                    <div class="form-check">
+                        <input asp-for="IsAdmin"
+                               class="form-check-input" />
+
+                        <label asp-for="IsAdmin"
+                               class="form-check-label">
+                            Grant administrator access
+                        </label>
+                    </div>
+
+                    <div class="form-text">
+                        Administrators can access and modify all Jasper Green
+                        operational records and user accounts.
+                    </div>
+                </div>
+            </div> *@
+
+            <!-- Hidden user identifier -->
+            <input type="hidden" asp-for="Id" />
+
+            <!-- Form actions -->
+            <div class="mt-3">
+                <button type="submit" class="btn btn-green">
+                    Save
+                </button>
+
+                <a asp-action="Index"
+                   class="btn btn-outline-secondary">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- jQuery libraries for validation -->
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>

@@ -30,7 +30,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace JasperGreen.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     public class PropertyController : Controller
     {
         private JasperGreenDbContext Context { get; set; }
