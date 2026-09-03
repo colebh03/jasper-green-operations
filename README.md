@@ -149,7 +149,7 @@ The purpose of the portal is to keep these workflows connected so that informati
 
 ### Business Rules and Validation
 
-![Jasper Green Service Form](docs/images/service-form.png)
+![Jasper Green Service Form](docs/images/service-form.PNG)
 
 A major part of the project was deciding which rules should be enforced by the system rather than relying only on the user to enter valid information.
 
@@ -194,7 +194,7 @@ It displays:
 
 ### Invoice Generation
 
-![Jasper Green Generated Invoice](docs/images/generated-invoice.png)
+![Jasper Green Generated Invoice](docs/images/generated-invoice.PNG)
 
 One of the larger additions to the original project was automated PDF invoice generation.
 
@@ -212,7 +212,7 @@ The API credential is stored outside version control through local development c
 
 ### Public Website
 
-![Jasper Green Public Homepage](docs/images/public-homepage.png)
+![Jasper Green Public Homepage](docs/images/public-homepage.PNG)
 
 The project also includes a separate public-facing website for the fictional Jasper Green company.
 
