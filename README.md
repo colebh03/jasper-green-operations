@@ -24,7 +24,7 @@ Jasper Green Operations models the day-to-day workflows of a fictional landscapi
 
 </div>
 
-![Jasper Green Operations Dashboard](docs/images/admin-dashboard.png)
+![Jasper Green Operations Dashboard](docs/images/operations-dashboard.png)
 
 
 ---
