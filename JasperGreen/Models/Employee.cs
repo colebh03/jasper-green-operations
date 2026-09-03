@@ -32,6 +32,6 @@ namespace JasperGreen.Models
         [Range(0.01, 999.99, ErrorMessage = "Hourly rate must be greater than zero and less than $1,000.")]
         public decimal Emp_Hourly_Rate { get; set; }
 
-        public string Emp_Full_Name => $"{Emp_First_Name} {Emp_Last_Name}";s
+        public string Emp_Full_Name => $"{Emp_First_Name} {Emp_Last_Name}";
     }
 }
