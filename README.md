@@ -131,6 +131,8 @@ The goal of this structure was to make the application behave like a connected b
 
 ### Operations Portal
 
+![Jasper Green Service Management](docs/images/service-management.PNG)
+
 The authenticated operations portal gives an administrator one place to work across the company's main operational areas.
 
 The portal includes:
@@ -312,7 +314,7 @@ No API keys or administrator passwords are included in this repository.
 ### Installation
 
 1. Clone or download this repository.
-2. Open `JasperGreenProjectPhaseIII.sln` in Visual Studio.
+2. Open `JasperGreenOperations.sln` in Visual Studio.
 3. Create `appsettings.Development.json`.
 4. Add the required private configuration values.
 5. Apply the included Entity Framework Core migrations.
