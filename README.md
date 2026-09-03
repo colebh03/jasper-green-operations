@@ -131,8 +131,6 @@ The goal of this structure was to make the application behave like a connected b
 
 ### Operations Portal
 
-![Jasper Green Service Management](docs/images/service-management.PNG)
-
 The authenticated operations portal gives an administrator one place to work across the company's main operational areas.
 
 The portal includes:
@@ -146,6 +144,8 @@ The portal includes:
 - Operational dashboard and recent activity
 
 The purpose of the portal is to keep these workflows connected so that information entered in one area can support later parts of the process.
+
+![Jasper Green Service Management](docs/images/service-management.PNG)
 
 ### Business Rules and Validation
 
@@ -162,6 +162,8 @@ Examples include:
 - Forms provide validation and user feedback for completed or blocked operations
 
 These rules help preserve the relationships between records and prevent changes that would leave the database in an invalid or inconsistent state.
+
+![Jasper Green Service Form](docs/images/service-form.PNG)
 
 ### Filtering and Data Access
 
