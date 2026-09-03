@@ -149,7 +149,7 @@ The purpose of the portal is to keep these workflows connected so that informati
 
 ### Business Rules and Validation
 
-![Jasper Green Service Form](docs/images/service-form.PNG)
+![Jasper Green Service Form](docs/images/service-form.png)
 
 A major part of the project was deciding which rules should be enforced by the system rather than relying only on the user to enter valid information.
 
