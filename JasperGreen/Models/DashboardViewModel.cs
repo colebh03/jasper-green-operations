@@ -9,15 +9,7 @@ namespace JasperGreen.Models
     {
         public decimal TotalRevenue { get; set; }
 
-        public int WeeklyServices { get; set; }
-
-        public List<string> RevenueLabels { get; set; } = new();
-
-        public List<decimal> RevenueData { get; set; } = new();
-
-        public List<string> CrewLabels { get; set; } = new();
-
-        public List<int> CrewData { get; set; } = new();
+        public int WeeklyServices { get; set; }       
 
         public decimal MonthlyRevenueChange { get; set; }
 
@@ -25,10 +17,7 @@ namespace JasperGreen.Models
 
         public bool HasPreviousMonthData { get; set; }
 
-        // =====================================================
-        // PLATFORM STATUS
-        // =====================================================
-
+        // Current platform totals displayed on the dashboard
         public int TotalCustomers { get; set; }
 
         public int TotalProperties { get; set; }
@@ -37,10 +26,7 @@ namespace JasperGreen.Models
 
         public int TotalEmployees { get; set; }
 
-        // =====================================================
-        // RECENT ACTIVITY
-        // =====================================================
-
+        // Most recent completed services displayed in the activity feed
         public List<ActivityItem> RecentActivities { get; set; } = new();
     }
 

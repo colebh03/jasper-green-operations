@@ -1,34 +1,6 @@
-﻿@*
-============================================================================
-AUTHOR:       Cole Howell
-COURSE:       ISTM 415
-PROGRAM:      AddEdit.cshtml (Service Add/Edit View)
+﻿@model ServiceViewModel
 
-PURPOSE:      Provides a form for creating and editing service event records.
-              Allows users to assign a crew, customer, and property, and enter
-              service details such as date and fee.
-
-INPUT:        - ServiceViewModel containing service data and dropdown lists
-              - User-entered form data (Crew, Customer, Property, Date, Fee)
-
-PROCESS:      - Dynamically sets form mode (Add or Edit)
-              - Binds form inputs to Service model properties
-              - Validates input using DataAnnotations and jQuery validation
-              - Submits form data to Save action in controller
-
-OUTPUT:       - Rendered form for service event entry or modification
-              - Validation error messages if input is invalid
-              - Submitted Service data to controller for processing
-
-HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
-              unauthorized aid on this academic work.
-============================================================================
-*@
-
-@model ServiceViewModel
-
-@{
-    // Set page title based on string ("Add" or "Edit")
+@{    
     string title = Model.Action + " Service Event";
     ViewData["Title"] = title;
 }
@@ -38,11 +10,6 @@ HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
 
     <div class="card-box shadow-sm p-3 mx-auto" style="max-width: 900px;">
         <form asp-action="Save" method="post">
-
-            <!-- Displays validation errors from model binding -->
-            @* <div asp-validation-summary="All" class="text-danger"></div> *@
-
-            <!-- Crew Drop Down Box -->
             <div class="row mb-2">
                 <label asp-for="Service.Crew_ID" class="col-md-3 col-form-label">Crew</label>
                 <div class="col-md-7">
@@ -53,7 +20,6 @@ HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
                 </div>
             </div>   
 
-            <!-- Customer Drop Down Box -->
             <div class="row mb-2">
                 <label asp-for="Service.Cust_ID" class="col-md-3 col-form-label">Customer</label>
                 <div class="col-md-7">
@@ -64,21 +30,20 @@ HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
                 </div>
             </div>
 
-            <!-- Property Drop Down Box -->
+            @* Property options are loaded dynamically after a customer is selected. *@
             <div class="row mb-2">
                 <label asp-for="Service.Property_ID" class="col-md-3 col-form-label">Property</label>
                 <div class="col-md-7">
                     <select id="propertySelect"
                         asp-for="Service.Property_ID"
                         class="form-select"
-                            disabled>
+                        disabled>
                         <option value="">Select a property...</option>
                     </select>
                     <span asp-validation-for="Service.Property_ID" class="text-danger"></span>
                 </div>
             </div>
 
-            <!-- Service Date -->
             <div class="row mb-2">
                 <label asp-for="Service.Service_Date" class="col-md-3 col-form-label">Service Date</label>
                 <div class="col-md-7">
@@ -87,7 +52,6 @@ HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
                 </div>
             </div>         
 
-            <!-- Service Fee -->
             <div class="row mb-2">
                 <label asp-for="Service.Service_Fee" class="col-md-3 col-form-label">Service Fee</label>
                 <div class="col-md-7">
@@ -96,10 +60,8 @@ HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
                 </div>
             </div>            
 
-            <!-- Hidden key used to detect Edit vs Add -->
             <input type="hidden" asp-for="Service.Service_ID" />
 
-            <!-- Form actions -->
             <div class="mt-3">
                 <button type="submit" class="btn btn-green">Save</button>
                 <a asp-action="List" class="btn btn-outline-secondary">Cancel</a>
@@ -108,12 +70,11 @@ HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
     </div>
 </div>
 
-<!-- jQuery libraries for validation -->
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 <script>
-
+    // Reload the property dropdown whenever the selected customer changes
     document.getElementById("customerSelect").addEventListener("change", function () {
 
         const customerId = this.value;
@@ -152,6 +113,7 @@ HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
             });
     });
 
+    // Repopulate properties on page load when editing an existing service
     window.addEventListener("load", function () {
 
         const customerDropdown =

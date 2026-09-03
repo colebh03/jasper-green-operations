@@ -11,9 +11,11 @@ namespace JasperGreen.Models
         public List<Crew> Crews { get; set; }
 
         public string SortColumn { get; set; }
+
         public string SortDirection { get; set; }
 
         public string Filter { get; set; }
+
         public int? Id { get; set; }
 
         public string CurrentFilterText { get; set; }

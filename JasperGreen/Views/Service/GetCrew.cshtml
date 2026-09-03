@@ -1,28 +1,4 @@
-﻿@*
-============================================================================
-AUTHOR:       Cole Howell
-COURSE:       ISTM 415
-PROGRAM:      GetCrew.cshtml
-
-PURPOSE:      Displays a selection form for filtering service events by Crew.
-              Allows the user to choose a crew before applying the filter.
-
-INPUT:        - CrewFilterViewModel containing list of Crews
-              - User selection of Crew_ID from dropdown
-
-PROCESS:      - Renders dropdown populated with available crews
-              - Validates that a crew is selected
-              - Submits selected Crew_ID to controller for filtering
-
-OUTPUT:       - Rendered form for crew selection
-              - Redirect to filtered service list based on selected crew
-
-HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
-              unauthorized aid on this academic work.
-============================================================================
-*@
-
-@model CrewFilterViewModel
+﻿@model CrewFilterViewModel
 
 @{
     ViewData["Title"] = "Select Crew";
@@ -34,7 +10,6 @@ HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
     <div class="card-box shadow-sm p-3 mx-auto" style="max-width: 900px;">
         <form asp-action="GetCrew" method="post">
 
-            <!-- Crew Drop Down Box -->
             <div class="row mb-2">
                 <label asp-for="Crew_ID" class="col-md-3 col-form-label">Crew</label>
 

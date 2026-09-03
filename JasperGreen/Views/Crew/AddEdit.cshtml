@@ -1,27 +1,4 @@
-﻿@*
-============================================================================
-AUTHOR:       Cole Howell
-COURSE:       ISTM 415
-PROGRAM:      AddEdit.cshtml (Crew Add/Edit View)
-
-PURPOSE:      Provides a form interface for creating and editing Crew records,
-              including selection of foreman and crew members.
-
-INPUT:        CrewViewModel containing Crew data and a list of Employees for
-              dropdown population.
-
-PROCESS:      Renders a form bound to the Crew model, allowing users to select
-              employees for each role and submit data for persistence.
-
-OUTPUT:       HTML form submitted to the Save action, resulting in database
-              insert or update operations.
-
-HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
-              unauthorized aid on this academic work.
-============================================================================
-*@
-
-@model CrewViewModel
+﻿@model CrewViewModel
 
 @{
     // Set page title based on string ("Add" or "Edit")
@@ -34,11 +11,9 @@ HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
 
     <div class="card-box shadow-sm p-3 mx-auto" style="max-width: 900px;">
         <form asp-action="Save" method="post">
-
-            <!-- Displays validation errors from model binding -->
-            <div asp-validation-summary="All" class="text-danger"></div>           
-
-            <!-- Crew Foreman Drop Down Box -->
+            
+            <div asp-validation-summary="All" class="text-danger"></div>          
+            
             <div class="row mb-2">
                 <label asp-for="Crew.Crew_Foreman" class="col-md-3 col-form-label">Foreman</label>
                 <div class="col-md-7">
@@ -48,8 +23,7 @@ HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
                     <span asp-validation-for="Crew.Crew_Foreman" class="text-danger"></span>
                 </div>
             </div>   
-
-            <!-- Crew Member 1 Drop Down Box -->
+            
             <div class="row mb-2">
                 <label asp-for="Crew.Crew_Member_1" class="col-md-3 col-form-label">Member 1</label>
                 <div class="col-md-7">
@@ -59,8 +33,7 @@ HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
                     <span asp-validation-for="Crew.Crew_Member_1" class="text-danger"></span>
                 </div>
             </div>
-
-            <!-- Crew Member 2 Drop Down Box -->
+            
             <div class="row mb-2">
                 <label asp-for="Crew.Crew_Member_2" class="col-md-3 col-form-label">Member 2</label>
                 <div class="col-md-7">
@@ -70,11 +43,9 @@ HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
                     <span asp-validation-for="Crew.Crew_Member_2" class="text-danger"></span>
                 </div>
             </div>             
-
-            <!-- Hidden key used to detect Edit vs Add -->
+           
             <input type="hidden" asp-for="Crew.Crew_ID" />
-
-            <!-- Form actions -->
+            
             <div class="mt-3">
                 <button type="submit" class="btn btn-green">Save</button>
                 <a asp-action="List" class="btn btn-outline-secondary">Cancel</a>
@@ -83,7 +54,6 @@ HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
     </div>
 </div>
 
-<!-- jQuery libraries for validation -->
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>

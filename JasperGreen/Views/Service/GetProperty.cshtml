@@ -1,28 +1,4 @@
-﻿@*
-============================================================================
-AUTHOR:       Cole Howell
-COURSE:       ISTM 415
-PROGRAM:      GetProperty.cshtml
-
-PURPOSE:      Displays a selection form for filtering service events by Property.
-              Allows the user to choose a property before applying the filter.
-
-INPUT:        - PropertyFilterViewModel containing list of Properties
-              - User selection of Property_ID from dropdown
-
-PROCESS:      - Renders dropdown populated with available properties
-              - Validates that a property is selected
-              - Submits selected Property_ID to controller for filtering
-
-OUTPUT:       - Rendered form for property selection
-              - Redirect to filtered service list based on selected property
-
-HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
-              unauthorized aid on this academic work.
-============================================================================
-*@
-
-@model PropertyFilterViewModel
+﻿@model PropertyFilterViewModel
 
 @{
     ViewData["Title"] = "Select Property";
@@ -34,7 +10,6 @@ HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
     <div class="card-box shadow-sm p-3 mx-auto" style="max-width: 900px;">
         <form asp-action="GetProperty" method="post">
 
-            <!-- Property Drop Down Box -->
             <div class="row mb-2">
                 <label asp-for="Property_ID" class="col-md-3 col-form-label">Property</label>
 

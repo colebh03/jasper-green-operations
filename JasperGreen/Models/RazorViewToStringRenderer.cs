@@ -32,8 +32,10 @@ namespace JasperGreen.Models
             string viewName,
             object model)
         {
+            // Supply the model to the Razor view before rendering
             controller.ViewData.Model = model;
 
+            // Capture the rendered HTML in memory instead of writing it to the HTTP response
             using var writer = new StringWriter();
 
             var viewResult = _viewEngine.FindView(
@@ -47,6 +49,7 @@ namespace JasperGreen.Models
                     $"View '{viewName}' was not found.");
             }
 
+            // Build the Razor rendering context using the controller's existing view and TempData state
             var viewContext = new ViewContext(
                 controller.ControllerContext,
                 viewResult.View,
@@ -55,6 +58,7 @@ namespace JasperGreen.Models
                 writer,
                 new HtmlHelperOptions());
 
+            // Render the Razor view into the StringWriter and return the generated HTML
             await viewResult.View.RenderAsync(viewContext);
 
             return writer.ToString();

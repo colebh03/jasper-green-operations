@@ -1,29 +1,4 @@
-﻿@*
-============================================================================
-AUTHOR:       Cole Howell
-COURSE:       ISTM 415
-PROGRAM:      List.cshtml (Service Manager View)
-
-PURPOSE:      Displays a list of all service event records in a tabular format.
-              Provides options to add, edit, delete, and filter service events.
-
-INPUT:        - List<Service> model passed from the controller
-              - Related data (Customer, Property, Crew) for display
-
-PROCESS:      - Iterates through service records to populate table rows
-              - Displays key service details (date, customer, property, crew, fee)
-              - Provides filtering options via dropdown menu
-              - Generates action links for Edit, Delete, and Payment creation
-
-OUTPUT:       - Rendered HTML table of service events
-              - Navigation links for Add, Edit, Delete, and filtering actions
-
-HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
-              unauthorized aid on this academic work.
-============================================================================
-*@
-
-@model ServiceListViewModel
+﻿@model ServiceListViewModel
 
 @{
     ViewData["Title"] = "Service Events";
@@ -33,26 +8,6 @@ HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
     <h2 class="mb-0">Service Events</h2>              
     <a asp-action="Add" class="btn btn-green">+ Add Service Event</a>
 </div>
-
-@* <div class="d-flex justify-content-between align-items-center mb-3">
-    <div class="d-flex gap-2 mb-3">
-        <a asp-action="GetCustomer" class="btn btn-outline-secondary">
-            By Customer
-        </a>
-
-        <a asp-action="GetProperty" class="btn btn-outline-secondary">
-            By Property
-        </a>
-
-        <a asp-action="GetCrew" class="btn btn-outline-secondary">
-            By Crew
-        </a>
-
-        <a asp-action="List" class="btn btn-outline-dark ms-auto">
-            Show All
-        </a>
-    </div>
-</div> *@
 
 <div class="d-flex justify-content-between align-items-center mb-3">
 
@@ -247,20 +202,17 @@ HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
             <tbody>
                 @foreach (var Service in Model.Services)
                 {
-                    <tr>                    
-                        <!-- Data -->
+                    <tr>                                          
                         <td>@Service.Service_Date.ToShortDateString()</td>
                         <td class="truncate" title="@Service.Customer.Cust_Name">@Service.Customer.Cust_Name</td>
                         <td>@Service.Property.Property_Full_Address</td>
                         <td>@Service.Crew.CrewDisplayShort</td>
                         <td>@Service.Service_Fee.ToString("C")</td>
 
-                        <!-- Actions -->
                         <td class="text-end">
 
                             <div class="d-inline-flex align-items-center gap-3">
 
-                                <!-- Payment -->
                                 @if (Service.Payment == null)
                                 {
                                     <a asp-controller="Payment"
@@ -279,7 +231,6 @@ HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
                                     </a>
                                 }
 
-                                <!-- Invoice -->
                                 <a asp-action="InvoicePdf"
                                    asp-route-id="@Service.Service_ID"
                                    target="_blank"
@@ -289,7 +240,6 @@ HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
                                        style="color:#dc3545;"></i>
                                 </a>
 
-                                <!-- Edit -->
                                 @if (Service.Payment == null)
                                 {
                                     <a asp-action="Edit"
@@ -307,7 +257,6 @@ HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
                                     </a>
                                 }
 
-                                <!-- Delete / Paid -->
                                 @if (Service.Payment == null)
                                 {
                                     <a asp-action="Delete"
@@ -336,7 +285,3 @@ HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
         </table>
     </div>    
 </div>
-
-
-
-

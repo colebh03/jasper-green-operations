@@ -1,25 +1,4 @@
-﻿/*
-============================================================================
-AUTHOR:       Cole Howell, Michael Hudgins
-COURSE:       ISTM 415
-PROGRAM:      StateHelper.cs
-
-PURPOSE:      Provides a centralized utility for generating a list of U.S.
-              states formatted as SelectListItem objects for use in dropdowns.
-
-INPUT:        None (static method returns predefined state data).
-
-PROCESS:      Constructs and returns a collection of SelectListItem objects,
-              mapping state abbreviations to full state names.
-
-OUTPUT:       A List<SelectListItem> representing all U.S. states for UI binding.
-
-HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
-              unauthorized aid on this academic work.
-============================================================================
-*/
-
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
@@ -27,16 +6,7 @@ using System.ComponentModel.DataAnnotations;
 namespace JasperGreen.Models
 {    
     public static class StateHelper
-    {
-
-        /// <summary>
-        /// Generates a list of U.S. states for use in dropdown UI components.
-        /// </summary>
-        /// <remarks>
-        /// Each SelectListItem maps a state abbreviation (Value) to its full name (Text).
-        /// This method is stateless and returns a new list instance on each invocation.
-        /// </remarks>
-        /// <returns>List of SelectListItem representing all U.S. states.</returns>
+    {       
         public static List<SelectListItem> GetStates()
         {
             return new List<SelectListItem>

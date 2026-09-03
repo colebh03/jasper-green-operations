@@ -70,6 +70,7 @@ namespace JasperGreen.Controllers
         {
             bool isAdd = string.IsNullOrEmpty(model.Id);
 
+            // Password fields are required only when creating a new user
             if (isAdd &&
                 string.IsNullOrWhiteSpace(model.Password))
             {
@@ -95,6 +96,7 @@ namespace JasperGreen.Controllers
 
             if (isAdd)
             {
+                // Create the new Identity user using the supplied username and password
                 User user = new User
                 {
                     UserName = model.Username
@@ -109,7 +111,7 @@ namespace JasperGreen.Controllers
                 {
                     TempData["message"] =
                         model.Username +
-                        " was added successfully.";
+                        " was added.";
 
                     return RedirectToAction("Index");
                 }
@@ -127,6 +129,7 @@ namespace JasperGreen.Controllers
             }
             else
             {
+                // Existing user edits only update the username
                 User? user =
                     await userManager.FindByIdAsync(model.Id!);
 
@@ -144,7 +147,7 @@ namespace JasperGreen.Controllers
                 {
                     TempData["message"] =
                         model.Username +
-                        " was updated successfully.";
+                        " was updated.";
 
                     return RedirectToAction("Index");
                 }
@@ -169,9 +172,10 @@ namespace JasperGreen.Controllers
             string currentUserId =
                 userManager.GetUserId(User) ?? "";
 
+            // Prevent an authenticated user from deleting the account they are currently using
             if (id == currentUserId)
             {
-                TempData["message"] =
+                TempData["Error"] =
                     "You cannot delete your own account.";
 
                 return RedirectToAction("Index");
@@ -182,7 +186,7 @@ namespace JasperGreen.Controllers
 
             if (user == null)
             {
-                TempData["message"] =
+                TempData["Error"] =
                     "The selected user could not be found.";
 
                 return RedirectToAction("Index");
@@ -195,7 +199,7 @@ namespace JasperGreen.Controllers
             {
                 TempData["message"] =
                     user.UserName +
-                    " was deleted successfully.";
+                    " was deleted.";
             }
             else
             {
@@ -207,7 +211,7 @@ namespace JasperGreen.Controllers
                         error.Description + " | ";
                 }
 
-                TempData["message"] = errorMessage;
+                TempData["Error"] = errorMessage;
             }
 
             return RedirectToAction("Index");

@@ -1,28 +1,4 @@
-﻿/*
-============================================================================
-AUTHOR:       Cole Howell, Michael Hudgins
-COURSE:       ISTM 415
-PROGRAM:      JasperGreenDbContext.cs
-
-PURPOSE:      Defines the Entity Framework Core database context for the
-              JasperGreen system, managing entity sets and configuring
-              relationships and seed data.
-
-INPUT:        Configuration options provided via dependency injection,
-              including connection strings and database provider settings.
-
-PROCESS:      Maps domain models to database tables, establishes entity
-              relationships, and seeds initial data using Fluent API.
-
-OUTPUT:       A configured DbContext used to query and persist application
-              data to the underlying database.
-
-HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
-              unauthorized aid on this academic work.
-============================================================================
-*/
-
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Diagnostics.Metrics;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
@@ -35,8 +11,7 @@ namespace JasperGreen.Models
         public JasperGreenDbContext(DbContextOptions<JasperGreenDbContext> options)
             : base(options)
         { }
-
-        //Order may need to change (remove this parenthesis once it has been checked)
+        
         public DbSet<Customer> Customers { get; set; } = null!;
         public DbSet<Property> Properties { get; set; } = null!;
         public DbSet<Employee> Employees { get; set; } = null!;
@@ -45,12 +20,11 @@ namespace JasperGreen.Models
         public DbSet<Service> Services { get; set; } = null!;
 
 
-        //Seed data randomized using generative AI
+        //Randomized seed data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-            //CUSTOMER TABLE
+            
             modelBuilder.Entity<Customer>().HasData(
                 new Customer { Cust_ID = 1, Cust_Name = "Jordan Spieth", Cust_Billing_Address = "101 Fairway Dr", Cust_Billing_City = "Dallas", Cust_Billing_State = "TX", Cust_Billing_Zip = "75201", Cust_Phone = "2145551001", Cust_Email = "jspieth@email.com" },
                 new Customer { Cust_ID = 2, Cust_Name = "Scottie Scheffler", Cust_Billing_Address = "202 Masters Ln", Cust_Billing_City = "Dallas", Cust_Billing_State = "TX", Cust_Billing_Zip = "75202", Cust_Phone = "2145551002", Cust_Email = "sscheffler@email.com" },
@@ -63,8 +37,7 @@ namespace JasperGreen.Models
                 new Customer { Cust_ID = 9, Cust_Name = "Justin Thomas", Cust_Billing_Address = "909 Open Championship Way", Cust_Billing_City = "Bryan", Cust_Billing_State = "TX", Cust_Billing_Zip = "77802", Cust_Phone = "9795551009", Cust_Email = "jthomas@email.com" },
                 new Customer { Cust_ID = 10, Cust_Name = "Rickie Fowler", Cust_Billing_Address = "1001 Players Club Dr", Cust_Billing_City = "College Station", Cust_Billing_State = "TX", Cust_Billing_Zip = "77840", Cust_Phone = "9795551010", Cust_Email = "rfowler@email.com" }
             );
-
-            //EMPLOYEE TABLE
+            
             modelBuilder.Entity<Employee>().HasData(
                 new Employee { Emp_ID = 1, Emp_First_Name = "Cole", Emp_Last_Name = "Howell", Emp_SSN = "123456789", Emp_Job_Title = "Owner", Emp_Hire_Date = new DateOnly(2019, 3, 15), Emp_Hourly_Rate = 26.50M },
                 new Employee { Emp_ID = 2, Emp_First_Name = "Chris", Emp_Last_Name = "Lopez", Emp_SSN = "987654321", Emp_Job_Title = "Crew", Emp_Hire_Date = new DateOnly(2022, 5, 10), Emp_Hourly_Rate = 18.75M },
@@ -77,8 +50,7 @@ namespace JasperGreen.Models
                 new Employee { Emp_ID = 9, Emp_First_Name = "Ryan", Emp_Last_Name = "Baker", Emp_SSN = "777889999", Emp_Job_Title = "Crew", Emp_Hire_Date = new DateOnly(2020, 10, 14), Emp_Hourly_Rate = 19.10M },
                 new Employee { Emp_ID = 10, Emp_First_Name = "Eric", Emp_Last_Name = "Adams", Emp_SSN = "888990000", Emp_Job_Title = "Crew", Emp_Hire_Date = new DateOnly(2021, 6, 30), Emp_Hourly_Rate = 18.65M }
             );
-
-            //PROPERTY TABLE
+            
             modelBuilder.Entity<Property>().HasData(
                 new Property { Property_ID = 1, Cust_ID = 1, Property_Address = "101 Fairway Dr", Property_City = "Dallas", Property_State = "TX", Property_ZIP = "75201", Property_Service_Fee = 65.00M },
                 new Property { Property_ID = 2, Cust_ID = 1, Property_Address = "102 Fairway Dr", Property_City = "Dallas", Property_State = "TX", Property_ZIP = "75201", Property_Service_Fee = 85.00M },
@@ -94,7 +66,7 @@ namespace JasperGreen.Models
                 new Property { Property_ID = 12, Cust_ID = 10, Property_Address = "1001 Players Club Dr", Property_City = "College Station", Property_State = "TX", Property_ZIP = "77840", Property_Service_Fee = 75.00M }
             );
             
-            //CREW BUSINESS RULES
+            // Crew business rules
             modelBuilder.Entity<Crew>()
                 .HasOne(c => c.Foreman)
                 .WithMany()
@@ -112,15 +84,14 @@ namespace JasperGreen.Models
                 .WithMany()
                 .HasForeignKey(c => c.Crew_Member_2)
                 .OnDelete(DeleteBehavior.Restrict);
-
-            //CREW TABLE
+            
             modelBuilder.Entity<Crew>().HasData(
                 new Crew { Crew_ID = 1, Crew_Foreman = 2, Crew_Member_1 = 5, Crew_Member_2 = 4 },
                 new Crew { Crew_ID = 2, Crew_Foreman = 3, Crew_Member_1 = 6, Crew_Member_2 = 7 },
                 new Crew { Crew_ID = 3, Crew_Foreman = 8, Crew_Member_1 = 9, Crew_Member_2 = 10 }
             );       
             
-            //SERVICE BUSINESS RULES
+            // Services business rules
             modelBuilder.Entity<Service>()
                 .HasOne(ps => ps.Crew)
                 .WithMany(c => c.Services)
@@ -136,8 +107,7 @@ namespace JasperGreen.Models
                 .WithMany(p => p.Services)
                 .HasForeignKey(ps => ps.Property_ID)
                 .OnDelete(DeleteBehavior.Restrict);
-
-            //SERVICE TABLE
+            
             modelBuilder.Entity<Service>().HasData(
                 new Service { Service_ID = 1, Crew_ID = 1, Cust_ID = 1, Property_ID = 1, Service_Date = DateTime.Parse("2026-03-02"), Service_Fee = 65.00M },
                 new Service { Service_ID = 2, Crew_ID = 1, Cust_ID = 1, Property_ID = 2, Service_Date = DateTime.Parse("2026-03-18"), Service_Fee = 85.00M },

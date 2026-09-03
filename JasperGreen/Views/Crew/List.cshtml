@@ -1,28 +1,6 @@
-﻿@*
-============================================================================
-AUTHOR:       Cole Howell
-COURSE:       ISTM 415
-PROGRAM:      List.cshtml (Crew Manager View)
+﻿@model CrewListViewModel
 
-PURPOSE:      Displays a tabular list of all Crew records, including assigned
-              employees, and provides navigation for editing or deleting crews.
-
-INPUT:        List<Crew> containing crew records with associated employee
-              navigation properties (Foreman, CrewMember1, CrewMember2).
-
-PROCESS:      Iterates through the collection of Crew objects and renders each
-              as a row in a responsive table with action controls.
-
-OUTPUT:       HTML table displaying crew data with links to Edit and Delete
-              actions for each record.
-
-HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
-              unauthorized aid on this academic work.
-============================================================================
-*@
-
-@model CrewListViewModel
-<!-- Error for deletion of crew when associated with service records -->
+@* Display crew-related errors *@
 @if (TempData["Error"] != null)
 {
     <div class="alert alert-danger">
@@ -134,35 +112,12 @@ HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
             <tbody>
                 @foreach (var crew in Model.Crews)
                 {
-                    <tr>                    
-                        <!-- Data -->
+                    <tr>                                           
                         <td>@crew.Foreman.Emp_Full_Name</td>
                         <td>@crew.CrewMember1.Emp_Full_Name</td>
                         <td>@crew.CrewMember2.Emp_Full_Name</td>
-
-                        <!-- Actions (3-dot menu) -->
-                        <td class="text-end">
-                            @* <div class="dropdown">
-                                <button class="btn btn-sm btn-link text-dark" data-bs-toggle="dropdown">
-                                    <i class="bi bi-three-dots-vertical  "></i>
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-end">
-                                    <li>
-                                        <a class="dropdown-item"
-                                            asp-action="Edit"
-                                            asp-route-id="@crew.Crew_ID">
-                                            Edit
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item text-danger"
-                                            asp-action="Delete"
-                                            asp-route-id="@crew.Crew_ID">
-                                            Delete
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div> *@
+                        
+                        <td class="text-end">                            
                             <div class="d-inline-flex align-items-center gap-3">
                                 <a asp-action="Edit" asp-route-id="@crew.Crew_ID" class="text-muted" title="Edit">
                                     <i class="bi bi-pencil"></i>
@@ -179,7 +134,3 @@ HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
         </table>
     </div>    
 </div>
-
-
-
-

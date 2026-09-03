@@ -4,6 +4,7 @@ namespace JasperGreen.Models
 {
     public class ChangePasswordViewModel
     {
+        // Display-only username for the currently authenticated user
         public string Username { get; set; } = "";
 
         [Required(ErrorMessage = "Please enter your current password.")]

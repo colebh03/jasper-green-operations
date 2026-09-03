@@ -1,33 +1,6 @@
-﻿@*
-============================================================================
-AUTHOR:       Cole Howell
-COURSE:       ISTM 415
-PROGRAM:      AddEdit.cshtml (Payment Add/Edit View)
+﻿@model PaymentViewModel
 
-PURPOSE:      Provides a form for creating and editing Payment records.
-              Allows users to input payment details and select a customer.
-
-INPUT:        - PaymentViewModel containing Payment data and Customer list
-              - User-entered form data (Customer, Date, Amount)
-
-PROCESS:      - Dynamically sets form mode (Add or Edit)
-              - Binds form fields to Payment model properties
-              - Validates input using DataAnnotations and jQuery validation
-              - Submits form data to Save action in controller
-
-OUTPUT:       - Rendered form for Payment entry or modification
-              - Validation error messages if input is invalid
-              - Submitted Payment data to controller for processing
-
-HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
-              unauthorized aid on this academic work.
-============================================================================
-*@
-
-@model PaymentViewModel
-
-@{
-    // Set page title based on string ("Add" or "Edit")
+@{    
     string title = Model.Action + " Payment";
     ViewData["Title"] = title;
 }
@@ -36,23 +9,7 @@ HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
     <h2 class="mt-3 mb-3">@ViewData["Title"]</h2>
 
     <div class="card-box shadow-sm p-3 mx-auto" style="max-width: 900px;">
-        <form asp-action="Save" method="post">
-
-            <!-- Displays validation errors from model binding -->
-            @* <div asp-validation-summary="All" class="text-danger"></div> *@
-
-            @* <!-- Customer Drop Down Box -->
-            <div class="row mb-2">
-                <label asp-for="Payment.Cust_ID" class="col-md-3 col-form-label">Customer</label>
-                <div class="col-md-7">
-                    <select asp-for="Payment.Cust_ID" asp-items="@(new SelectList(Model.Customers, "Cust_ID", "Cust_Name"))" class="form-select">
-                        <option value="">Select a customer...</option>
-                    </select>
-                    <span asp-validation-for="Payment.Cust_ID" class="text-danger"></span>
-                </div>
-            </div>   *@                    
-
-            <!-- Payment Amount -->
+        <form asp-action="Save" method="post">                      
             <div class="row mb-2">
                 <label asp-for="Payment.Payment_Amount"
                        class="col-md-3 col-form-label">
@@ -80,7 +37,6 @@ HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
                 </div>
             </div>
 
-            <!-- Payment Date -->
             <div class="row mb-2">
                 <label asp-for="Payment.Payment_Date" class="col-md-3 col-form-label">Payment Date</label>
                 <div class="col-md-7">
@@ -89,7 +45,6 @@ HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
                 </div>
             </div>
 
-            <!-- Payment Method Drop Down Box -->
             <div class="row mb-2">
                 <label asp-for="Payment.Payment_Method" class="col-md-3 col-form-label">Payment Method</label>
                 <div class="col-md-7">
@@ -106,12 +61,9 @@ HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
                 </div>
             </div>                      
 
-
-            <!-- Hidden key used to detect Edit vs Add -->
             <input type="hidden" asp-for="Payment.Payment_ID" />
             <input type="hidden" asp-for="Payment.Service_ID" />
 
-            <!-- Form actions -->
             <div class="mt-3">
                 <button type="submit" class="btn btn-green">Save</button>
                 <a asp-action="List" class="btn btn-outline-secondary">Cancel</a>
@@ -120,7 +72,6 @@ HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
     </div>
 </div>
 
-<!-- jQuery libraries for validation -->
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>

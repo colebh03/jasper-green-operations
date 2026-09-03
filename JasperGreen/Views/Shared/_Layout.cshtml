@@ -1,25 +1,3 @@
-@*
-============================================================================
-AUTHOR:       Cole Howell, Michael Hudgins
-COURSE:       ISTM 415
-PROGRAM:      _Layout.cshtml
-
-PURPOSE:      Defines the shared administrator layout, navigation bar, footer,
-              and overall page structure for Jasper Green operations pages.
-
-INPUT:        ViewData, route data, authenticated user identity, and rendered
-              content from individual views.
-
-PROCESS:      Uses role-aware navigation to show public links, admin links, and
-              authentication controls appropriate to the current user.
-
-OUTPUT:       A consistent HTML structure for administrator portal pages.
-
-HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
-              unauthorized aid on this academic work.
-============================================================================
-*@
-
 @{
     string c = ViewContext.RouteData.Values["controller"]?.ToString() ?? "";
     string a = ViewContext.RouteData.Values["action"]?.ToString() ?? "";

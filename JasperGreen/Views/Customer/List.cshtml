@@ -1,28 +1,6 @@
-﻿@*
-============================================================================
-AUTHOR:       Cole Howell
-COURSE:       ISTM 415
-PROGRAM:      List.cshtml (Customer Manager View)
+﻿@model CustomerListViewModel
 
-PURPOSE:      Displays a tabular list of all Customer records and provides
-              navigation for adding, editing, and deleting customers.
-
-INPUT:        List<Customer> containing customer data retrieved from the
-              database.
-
-PROCESS:      Iterates through the collection of Customer objects and renders
-              each as a row in a responsive table with action controls.
-
-OUTPUT:       HTML table displaying customer information with links to Edit
-              and Delete actions for each record.
-
-HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
-              unauthorized aid on this academic work.
-============================================================================
-*@
-
-@model CustomerListViewModel
-<!-- Error for deletion of customer when associated with service records or properties -->
+@* Display customer-related errors *@
 @if (TempData["Error"] != null)
 {
     <div class="alert alert-danger py-2 px-3 mb-3 small rounded-3 shadow-sm text-center">
@@ -116,36 +94,13 @@ HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
             <tbody>
                 @foreach (var customer in Model.Customers)
                 {
-                    <tr>                    
-                        <!-- Data -->
+                    <tr>                                         
                         <td class="truncate" title="@customer.Cust_Name">@customer.Cust_Name</td>
                         <td>@customer.Cust_Phone</td>
                         <td>@customer.Cust_Email</td>
                         <td>@customer.Cust_Billing_City</td>
 
-                        <!-- Actions (3-dot menu) -->
-                        <td class="text-end">
-                            @* <div class="dropdown">
-                                <button class="btn btn-sm btn-link text-dark" data-bs-toggle="dropdown">
-                                    <i class="bi bi-three-dots-vertical  "></i>
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-end">
-                                    <li>
-                                        <a class="dropdown-item"
-                                            asp-action="Edit"
-                                            asp-route-id="@customer.Cust_ID">
-                                            Edit
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item text-danger"
-                                            asp-action="Delete"
-                                            asp-route-id="@customer.Cust_ID">
-                                            Delete
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div> *@
+                        <td class="text-end">                            
                             <div class="d-inline-flex align-items-center gap-3">
                                 <a asp-action="Edit" asp-route-id="@customer.Cust_ID" class="text-muted" title="Edit">
                                     <i class="bi bi-pencil"></i>
@@ -162,7 +117,3 @@ HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
         </table>
     </div>    
 </div>
-
-
-
-

@@ -205,12 +205,6 @@ rgba(220, 53, 69, 0.25)  - Red error glow
     box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
 }
 
-
-
-
-
-/* NEED TO SORT THE FOLLOWING:*/
-
 /*Hovering of Platform Status on Home Page*/
 .card a {
     transition: color 0.2s ease;

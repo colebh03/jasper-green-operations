@@ -1,28 +1,4 @@
-﻿@*
-============================================================================
-AUTHOR:       Cole Howell
-COURSE:       ISTM 415
-PROGRAM:      GetCustomer.cshtml
-
-PURPOSE:      Displays a selection form for filtering service events by Customer.
-              Allows the user to choose a customer before applying the filter.
-
-INPUT:        - CustomerFilterViewModel containing list of Customers
-              - User selection of Cust_ID from dropdown
-
-PROCESS:      - Renders dropdown populated with available customers
-              - Validates that a customer is selected
-              - Submits selected Cust_ID to controller for filtering
-
-OUTPUT:       - Rendered form for customer selection
-              - Redirect to filtered service list based on selected customer
-
-HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
-              unauthorized aid on this academic work.
-============================================================================
-*@
-
-@model DateFilterViewModel
+﻿@model DateFilterViewModel
 
 @{
     ViewData["Title"] = "Select Date Range";
@@ -34,7 +10,6 @@ HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
     <div class="card-box shadow-sm p-3 mx-auto" style="max-width: 900px;">
         <form asp-action="GetDate" method="post">
 
-            <!-- Start Date -->
             <div class="row mb-2">
                 <label asp-for="StartDate"
                        class="col-md-3 col-form-label">
@@ -54,7 +29,6 @@ HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
                 </div>
             </div>
 
-            <!-- End Date -->
             <div class="row mb-2">
                 <label asp-for="EndDate"
                        class="col-md-3 col-form-label">

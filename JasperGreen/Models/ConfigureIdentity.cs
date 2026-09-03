@@ -10,11 +10,7 @@ namespace JasperGreen.Models
 			var roleManager =
 				provider.GetRequiredService<RoleManager<IdentityRole>>(); 
 			var userManager =
-				provider.GetRequiredService<UserManager<User>>();
-
-
-            //string username = "admin"; string password = "Admin123!"; 
-            //string roleName = "Admin";
+				provider.GetRequiredService<UserManager<User>>();           
 
             var configuration = provider.GetRequiredService<IConfiguration>();
 
@@ -22,19 +18,19 @@ namespace JasperGreen.Models
             string? password = configuration["AdminUser:Password"];
             string roleName = "Admin";
 
+			// Skip admin-user creation when credentials are not configured
             if (string.IsNullOrWhiteSpace(username) ||
                 string.IsNullOrWhiteSpace(password))
             {
                 return;
             }
 
-
-            // if role doesn't exist, create it
+            // Ensure the Admin role exists before creating the initial administrator account
             if (await roleManager.FindByNameAsync(roleName) == null)
 			{
 				await roleManager.CreateAsync(new IdentityRole(roleName));
 			}
-			// if username doesn't exist, create it and add to role
+			// Seed the configured admin account only if it does not exist
 			if (await userManager.FindByNameAsync(username) == null)
 			{
 				User user = new User { UserName = username };

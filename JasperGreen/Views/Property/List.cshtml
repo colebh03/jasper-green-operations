@@ -1,29 +1,5 @@
-﻿@*
-============================================================================
-AUTHOR:       Cole Howell
-COURSE:       ISTM 415
-PROGRAM:      List.cshtml (Property Manager View)
-
-PURPOSE:      Displays a tabular list of all Property records, including
-              associated Customer data, and provides navigation for managing
-              properties.
-
-INPUT:        List<Property> containing property data and related Customer
-              navigation properties retrieved from the database.
-
-PROCESS:      Iterates through the collection of Property objects and renders
-              each as a row in a responsive table with action controls.
-
-OUTPUT:       HTML table displaying property details with links to Edit and
-              Delete actions for each record.
-
-HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
-              unauthorized aid on this academic work.
-============================================================================
-*@
-
-@model PropertyListViewModel
-<!-- Error for deletion of property when associated with service records -->
+﻿@model PropertyListViewModel
+@* Display property-related errors *@
 @if (TempData["Error"] != null)
 {
     <div class="alert alert-danger">
@@ -168,35 +144,12 @@ HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
             <tbody>
                 @foreach (var property in Model.Properties)
                 {
-                    <tr>                    
-                        <!-- Data -->
+                    <tr>                                         
                         <td class="truncate" title="@property.Property_Full_Address">@property.Property_Full_Address</td>
                         <td>@property.Customer.Cust_Name</td>
                         <td>@property.Property_Service_Fee.ToString("c")</td>                        
 
-                        <!-- Actions (3-dot menu) -->
-                        <td class="text-end">
-                            @* <div class="dropdown">
-                                <button class="btn btn-sm btn-link text-dark" data-bs-toggle="dropdown">
-                                    <i class="bi bi-three-dots-vertical  "></i>
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-end">
-                                    <li>
-                                        <a class="dropdown-item"
-                                            asp-action="Edit"
-                                            asp-route-id="@property.Property_ID">
-                                            Edit
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item text-danger"
-                                            asp-action="Delete"
-                                            asp-route-id="@property.Property_ID">
-                                            Delete
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div> *@
+                        <td class="text-end">                           
                             <div class="d-inline-flex align-items-center gap-3">
                                 <a asp-action="Edit" asp-route-id="@property.Property_ID" class="text-muted" title="Edit">
                                     <i class="bi bi-pencil"></i>
@@ -213,7 +166,3 @@ HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
         </table>
     </div>    
 </div>
-
-
-
-

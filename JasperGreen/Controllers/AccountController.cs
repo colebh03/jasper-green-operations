@@ -35,6 +35,7 @@ namespace JasperGreen.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Authenticate user without triggering account locked out on failure
                 Microsoft.AspNetCore.Identity.SignInResult result =
                     await signInManager.PasswordSignInAsync(
                         model.Username,
@@ -73,6 +74,7 @@ namespace JasperGreen.Controllers
         [HttpGet]
         public async Task<IActionResult> ChangePassword()
         {
+            // Resolve the currently authenticated user
             User? user = await userManager.GetUserAsync(User);
 
             if (user == null)
@@ -114,17 +116,14 @@ namespace JasperGreen.Controllers
 
                 if (result.Succeeded)
                 {
+                    // Refresh authenticated session so user stays signed in after their password changes
                     await signInManager.RefreshSignInAsync(user);
 
                     TempData["message"] =
                         "Your password was changed successfully.";
 
-                    if (await userManager.IsInRoleAsync(user, "Admin"))
-                    {
-                        return RedirectToAction("Index", "Admin");
-                    }
-
-                    return RedirectToAction("Index", "Home");
+                    // Redirect authenticated administrators back to operations portal                   
+                    return RedirectToAction("Index", "Admin");
                 }
 
                 foreach (IdentityError error in result.Errors)

@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//For future session state (if needed)
+//Register session services for application state that may be needed across requests
 builder.Services.AddMemoryCache();
 builder.Services.AddSession();
 
-// Add services to the container.
+// Configure lowercase URLs with trailing slashes
 builder.Services.AddRouting(options => {
     options.LowercaseUrls = true;
     options.AppendTrailingSlash = true;
@@ -19,24 +19,22 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<JasperGreenDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("JasperGreen")));
 
-//Can change password options
+// Configure ASP.NET Core Identity with EF Core-backed users and roles
 builder.Services.AddIdentity<User, IdentityRole>()
     .AddEntityFrameworkStores<JasperGreenDbContext>()
     .AddDefaultTokenProviders();
 
-//PdfMyHtml Service Registration
+// Register the external PDF generation service
 builder.Services.AddHttpClient<PdfMyHtmlService>();
 
-//RazorToString Registration
+// Register Razor view rendering used to convert invoice views into HTML
 builder.Services.AddScoped<RazorViewToStringRenderer>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseExceptionHandler("/Home/Error");    
     app.UseHsts();
 }
 
@@ -45,17 +43,17 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-//Configure app to use authentication and authorization
 app.UseAuthentication();
 app.UseAuthorization();
 
+// Seed the configured administrator account and role at application startup
 var scopeFactory = app.Services.GetRequiredService<IServiceScopeFactory>(); 
+
 using (var scope = scopeFactory.CreateScope())
 {
 	await ConfigureIdentity.CreateAdminUserAsync(scope.ServiceProvider);
 }
 
-//must be called before routes are mapped - Cole
 app.UseSession();
 
 app.MapControllerRoute(

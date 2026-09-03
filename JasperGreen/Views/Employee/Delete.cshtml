@@ -1,55 +1,22 @@
-﻿@*
-============================================================================
-AUTHOR:       Cole Howell
-COURSE:       ISTM 415
-PROGRAM:      Delete.cshtml (Employee Delete Confirmation View)
+﻿@model Employee
 
-PURPOSE:      Provides a confirmation interface for deleting an Employee
-              record, ensuring the user verifies the action before removal.
-
-INPUT:        Employee object retrieved from the database containing the
-              identifying information for the selected record.
-
-PROCESS:      Displays the employee’s name and prompts the user to confirm
-              deletion via a POST request to the controller.
-
-OUTPUT:       Form submission that results in deletion of the Employee record
-              or cancellation returning to the list view.
-
-HONOR CODE:   On my honor, as an Aggie, I have neither given nor received
-              unauthorized aid on this academic work.
-============================================================================
-*@
-
-@model Employee
-
-@{
-    // Set the page title for display in the layout and browser tab.
+@{    
     string title = "Delete Employee";
     ViewData["Title"] = title;
 }
 
 <div class="d-flex justify-content-between align-items-center mb-3">
     <h2>Confirm Deletion</h2>
-</div>   
-    <!-- Warning message displayed prominently to alert the user -->
-    <p class="bg-danger text-light p-3">
-        Are you sure you want to delete the following employee from the database?
-    </p>
+</div>       
+<p class="bg-danger text-light p-3">
+    Are you sure you want to delete the following employee from the database?
+</p>
 
-    <!-- Display the employees name so the user knows which record is affected -->
-    <h3>@Model.Emp_Full_Name</h3>
+<h3>@Model.Emp_Full_Name</h3>
+   
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Emp_ID" />
 
-    <!--
-        The form posts to the Delete action method in the controller.
-        A hidden field is used to pass the Emp_ID so the correct record
-        can be located and removed.
-    -->
-    <form asp-action="Delete" method="post">
-        <input type="hidden" asp-for="Emp_ID" />
-
-        <!-- Confirmation buttons: Delete (submits) or Cancel (returns to list) -->
-        <button type="submit" class="btn btn-danger">Delete</button>
-        <a asp-action="List" class="btn btn-outline-secondary">Cancel</a>
-    </form>
-
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-action="List" class="btn btn-outline-secondary">Cancel</a>
+</form>
