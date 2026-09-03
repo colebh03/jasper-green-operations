@@ -131,7 +131,7 @@ The goal of this structure was to make the application behave like a connected b
 
 ### Operations Portal
 
-![Jasper Green Operations Dashboard](docs/images/service-management.png)
+![Jasper Green Service Management](docs/images/service-management.png)
 
 The authenticated operations portal gives an administrator one place to work across the company's main operational areas.
 
