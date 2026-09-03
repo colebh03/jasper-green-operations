@@ -131,6 +131,8 @@ The goal of this structure was to make the application behave like a connected b
 
 ### Operations Portal
 
+![Jasper Green Service Management](docs/images/service-management.PNG)
+
 The authenticated operations portal gives an administrator one place to work across the company's main operational areas.
 
 The portal includes:
@@ -145,9 +147,9 @@ The portal includes:
 
 The purpose of the portal is to keep these workflows connected so that information entered in one area can support later parts of the process.
 
-![Jasper Green Service Management](docs/images/service-management.PNG)
-
 ### Business Rules and Validation
+
+![Jasper Green Service Form](docs/images/service-form.PNG)
 
 A major part of the project was deciding which rules should be enforced by the system rather than relying only on the user to enter valid information.
 
@@ -162,8 +164,6 @@ Examples include:
 - Forms provide validation and user feedback for completed or blocked operations
 
 These rules help preserve the relationships between records and prevent changes that would leave the database in an invalid or inconsistent state.
-
-![Jasper Green Service Form](docs/images/service-form.PNG)
 
 ### Filtering and Data Access
 
@@ -194,6 +194,8 @@ It displays:
 
 ### Invoice Generation
 
+![Jasper Green Generated Invoice](docs/images/generated-invoice.png)
+
 One of the larger additions to the original project was automated PDF invoice generation.
 
 When an invoice is requested, the application:
@@ -209,6 +211,8 @@ This feature required connecting application data, Razor rendering, JSON seriali
 The API credential is stored outside version control through local development configuration.
 
 ### Public Website
+
+![Jasper Green Public Homepage](docs/images/public-homepage.png)
 
 The project also includes a separate public-facing website for the fictional Jasper Green company.
 
