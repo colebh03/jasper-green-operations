@@ -16,7 +16,7 @@
 
 <br />
 
-Jasper Green Operations models the day-to-day workflows of a fictional landscaping company through a public-facing website and authenticated internal operations portal.
+Jasper Green Operations is a full-stack information system built around the day-to-day operations of a fictional landscaping company. The application combines a public-facing website with an authenticated internal portal used to manage customers, properties, employees, crews, services, payments, invoices, and system users.
 
 [View Repository](https://github.com/colebh03/jasper-green-operations)
 ·
@@ -25,7 +25,6 @@ Jasper Green Operations models the day-to-day workflows of a fictional landscapi
 </div>
 
 ![Jasper Green Operations Dashboard](docs/images/operations-dashboard.png)
-
 
 ---
 
@@ -64,14 +63,16 @@ Jasper Green Operations models the day-to-day workflows of a fictional landscapi
 <!-- ABOUT THE PROJECT -->
 ## About the Project
 
-Jasper Green Operations is a full-stack information system I designed and developed to model the operational needs of a fictional landscaping company.
+Jasper Green Operations is a system I independently designed and developed to model the operational needs of a fictional landscaping company.
 
-The application combines two connected experiences:
+The main problem behind the project was that the company needed one system capable of connecting information that would otherwise exist across separate records and processes. Customer information affects property information, properties affect service pricing, employees are organized into crews, crews complete services, and completed services ultimately connect to payments and invoices.
+
+Because of this, the project was built around the business process first rather than around a collection of independent CRUD pages.
+
+The application includes two main components:
 
 - A public-facing company website for customers
-- An authenticated internal portal for managing day-to-day business operations
-
-The goal was not just to build a CRUD application. I wanted to take a connected business process, model the relationships behind it, and build an application that could support the workflow from customer and property management through completed service, payment, and invoice generation.
+- An authenticated internal operations portal for managing day-to-day business activity
 
 ### Business Workflow
 
@@ -79,9 +80,9 @@ The system is organized around a connected set of business relationships:
 
 **Customer → Property → Service → Crew → Payment → Invoice**
 
-A customer can own multiple properties. Each property stores its own service information and standard rate. Employees are assigned to crews, crews complete service work, and completed services connect operational activity with customer payments and invoice generation.
+A customer can own multiple properties, and each property stores its own contracted service fee. Employees are assigned to crews, with each crew consisting of a foreman and two additional members. Service records connect a customer, property, crew, date, and service fee, while payments are recorded against completed services and can then be used to generate customer invoices.
 
-The application uses those relationships to support workflows across the system rather than treating each database table as an isolated record.
+The goal of this structure was to make the application behave like a connected business system rather than treating each database entity as an isolated record.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -130,7 +131,9 @@ The application uses those relationships to support workflows across the system 
 
 ### Operations Portal
 
-The authenticated operations portal provides centralized access to the company's primary workflows:
+The authenticated operations portal gives an administrator one place to work across the company's main operational areas.
+
+The portal includes:
 
 - Customer and property management
 - Employee and crew management
@@ -140,9 +143,11 @@ The authenticated operations portal provides centralized access to the company's
 - Password management
 - Operational dashboard and recent activity
 
+The purpose of the portal is to keep these workflows connected so that information entered in one area can support later parts of the process.
+
 ### Business Rules and Validation
 
-The application includes validation and relational controls designed around the underlying business process.
+A major part of the project was deciding which rules should be enforced by the system rather than relying only on the user to enter valid information.
 
 Examples include:
 
@@ -154,9 +159,11 @@ Examples include:
 - Property selections dynamically update based on the selected customer
 - Forms provide validation and user feedback for completed or blocked operations
 
+These rules help preserve the relationships between records and prevent changes that would leave the database in an invalid or inconsistent state.
+
 ### Filtering and Data Access
 
-Operational records can be filtered and sorted without loading the entire dataset into application memory.
+The application includes filtering and sorting across several operational lists so users can find relevant records without manually searching through the entire dataset.
 
 Examples include:
 
@@ -164,10 +171,13 @@ Examples include:
 - Payment filtering by customer and date
 - Multi-column sorting across operational lists
 - Entity Framework Core relationship loading for connected business data
+- LINQ queries that apply filtering and sorting before results are returned to the view
 
 ### Dashboard
 
-The administrative dashboard provides a quick view of current operations, including:
+The administrative dashboard was built to give a quick summary of the current state of the business rather than requiring an administrator to open several separate pages.
+
+It displays:
 
 - Total customers
 - Total properties
@@ -180,21 +190,25 @@ The administrative dashboard provides a quick view of current operations, includ
 
 ### Invoice Generation
 
-Completed service information can be converted into a customer-facing invoice.
+One of the larger additions to the original project was automated PDF invoice generation.
 
-The application:
+When an invoice is requested, the application:
 
 1. Retrieves the related customer, property, crew, service, and payment data
 2. Renders the Razor invoice view into HTML
 3. Sends the rendered HTML to the PdfMyHtml API
 4. Polls the external conversion job until processing completes
-5. Returns the generated PDF to the user
+5. Downloads and returns the generated PDF to the user
+
+This feature required connecting application data, Razor rendering, JSON serialization, an external API, asynchronous HTTP requests, and file generation into one workflow.
 
 The API credential is stored outside version control through local development configuration.
 
 ### Public Website
 
-The project also includes a responsive public website for the fictional Jasper Green brand, including:
+The project also includes a separate public-facing website for the fictional Jasper Green company.
+
+It includes:
 
 - Home, About, and Contact pages
 - Residential and commercial service information
@@ -202,6 +216,8 @@ The project also includes a responsive public website for the fictional Jasper G
 - Custom CSS and Bootstrap styling
 - Scroll-based interface effects
 - Separate public and administrative layouts within the MVC application
+
+The public site was designed separately from the internal portal so the customer-facing experience could have its own structure and visual identity while still remaining part of the same application.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -214,7 +230,7 @@ The application follows the ASP.NET Core Model-View-Controller pattern.
 
 ### Models
 
-Models define the application's business entities, database relationships, validation rules, and view-specific data structures.
+Models represent the business entities and rules used throughout the system. They define database relationships, validation requirements, and view-specific data structures.
 
 Primary entities include:
 
@@ -228,7 +244,7 @@ Primary entities include:
 
 ### Controllers
 
-Controllers coordinate application workflows, database access, validation, filtering, sorting, authentication, and external integrations.
+Controllers coordinate the main application workflows between the database, business rules, and Razor views.
 
 Examples include:
 
@@ -237,16 +253,19 @@ Examples include:
 - Repopulating form data after validation failures
 - Returning customer-specific property data for dynamic form behavior
 - Preparing connected service data for invoice generation
+- Managing authentication and system-user workflows
 
 ### Views
 
-Razor views provide the public website and authenticated operations interface. Shared layouts separate the customer-facing site from the internal administrative experience.
+Razor views provide both the public website and authenticated operations interface. Shared layouts separate the public-facing site from the internal administrative experience.
+
+JavaScript is also used where the interface needs behavior that depends on another field, such as dynamically loading properties after a customer is selected on the service form.
 
 ### Database
 
-Entity Framework Core maps the relational business model to SQL Server and manages schema changes through migrations.
+Entity Framework Core maps the relational model to SQL Server and manages schema changes through migrations.
 
-The data model reflects the operational relationships between customers, properties, employees, crews, services, and payments.
+The database was designed around the actual relationships between customers, properties, employees, crews, services, and payments. This allows the application to enforce rules across entities and retrieve connected information when building operational views or invoices.
 
 ### Authentication
 
@@ -310,9 +329,9 @@ A valid PdfMyHtml API key is required for PDF invoice generation. The remaining 
 
 I originally developed Jasper Green Operations for an Application Development course in the Management Information Systems program at Texas A&M University's Mays Business School.
 
-The course requirements focused on building a functional ASP.NET Core MVC application using C#, SQL Server, Entity Framework Core, Razor, relational data, CRUD workflows, filtering, and validation.
+The original project requirements were centered around building a functional ASP.NET Core MVC application using C#, SQL Server, Entity Framework Core, Razor, relational data, CRUD workflows, filtering, and validation.
 
-I independently developed the application and expanded it beyond those requirements with:
+I independently developed the application and continued expanding it beyond those requirements with:
 
 - ASP.NET Core Identity authentication
 - System-user and password management
@@ -325,7 +344,7 @@ I independently developed the application and expanded it beyond those requireme
 - A redesigned public-facing website
 - Additional demonstration data and interface improvements
 
-The project gave me the opportunity to work through the full process of translating an operational scenario into a relational data model, application workflows, business rules, and a usable interface.
+The main value of the project for me was working through the entire process of taking an operational business scenario and turning it into a working information system. That required determining how the data should be structured, which relationships were necessary, how users would move through the system, and which rules needed to be enforced by the application.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -334,11 +353,11 @@ The project gave me the opportunity to work through the full process of translat
 <!-- TAKEAWAYS -->
 ## What I Took From the Project
 
-The most valuable part of this project was seeing how application development connects to the broader work of information systems.
+The biggest takeaway from Jasper Green was seeing how application development connects directly to the broader work of information systems.
 
-Building the system required more than writing C#. I had to think through how the business operates, which data belongs together, what users need to accomplish, which rules the system should enforce, and how the application should respond when those rules are violated.
+The technical part of the project mattered, but the harder and more useful part was deciding how the business process should actually work inside the system. I had to think through which information belongs together, what an administrator needs at each point in the workflow, what should happen when records depend on one another, and how the application should respond when a user attempts an invalid action.
 
-That intersection between business requirements and technical implementation is the area of technology I am most interested in continuing to work in.
+It also reinforced why I am interested in technology roles that sit between business requirements and technical implementation. I enjoy understanding how a process works, identifying what the system needs to support, and then working through the technical details required to make that solution function.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
